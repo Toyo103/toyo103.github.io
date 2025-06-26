@@ -114,7 +114,8 @@ html {
 }
 
 .site-nav {
-  @include relative-font-size(1.125);
+  //@include relative-font-size(1.125);
+  font-size: 15px;
   line-height: $header-height;
   position: absolute;
   right: 0;
@@ -615,8 +616,7 @@ html {
   }
 
   .archives-time {
-    // @include relative-font-size(1.5);
-    font-size: 15px;
+    @include relative-font-size(1.5);
 
     &:not(:first-child) {
       margin-top: 18px;
