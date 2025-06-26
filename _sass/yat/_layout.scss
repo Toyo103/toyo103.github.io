@@ -436,6 +436,8 @@ html {
   }
 
   .post-content {
+
+    display: none !important;
     // 본문 기본 텍스트 스타일
     font-size: 18px;
     line-height: 1.7;
@@ -874,3 +876,4 @@ a:visited .post-badges .post-badge.badge-new {
   color: $background-color;
   background-color: $background-color;
 }
+
