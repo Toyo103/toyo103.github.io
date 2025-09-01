@@ -875,3 +875,44 @@ a:visited .post-badges .post-badge.badge-new {
   background-color: $background-color;
 }
 
+/**
+ * Code Block
+ */
+
+/* 코드 블록 전체 */
+.highlighter-rouge {
+    padding: 1em;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+/* 코드 글자색, 폰트 */
+.highlighter-rouge code {
+    color: #dcdcdc; /* 기본 글자색 */
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 키워드 강조 예제 */
+.highlighter-rouge .k { color: #569cd6; }   /* keyword */
+.highlighter-rouge .n { color: #d69d85; }   /* number */
+.highlighter-rouge .s { color: #d69d85; }   /* string */
+.highlighter-rouge .c { color: #6a9955; }   /* comment */
+
+/* 줄 번호 예제 (선택 사항) */
+pre.highlighter-rouge {
+    counter-reset: linenumber;
+}
+pre.highlighter-rouge code span {
+    display: block;
+    counter-increment: linenumber;
+}
+pre.highlighter-rouge code span::before {
+    content: counter(linenumber);
+    display: inline-block;
+    width: 2em;
+    margin-right: 1em;
+    text-align: right;
+    color: #888;
+}
