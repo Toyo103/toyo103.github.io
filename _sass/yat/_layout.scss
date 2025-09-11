@@ -452,6 +452,27 @@ html {
       padding-bottom: 0.3em;
     }
 
+    h2 {
+      font-size: 1.75rem; // 필요시 조정
+      margin-left: 0;      // 최상위 제목은 들여쓰기 없음
+      margin-top: 2em;
+      margin-bottom: 1em;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin-left: 20px;   // 하위 제목 들여쓰기
+      margin-top: 1.5em;
+      margin-bottom: 0.8em;
+    }
+
+    h4 {
+      font-size: 1.25rem;
+      margin-left: 40px;   // 더 하위 제목 들여쓰기
+      margin-top: 1.2em;
+      margin-bottom: 0.6em;
+    }
+
     // 본문 단락
     p {
       margin: 1.2em 0;
