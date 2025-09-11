@@ -452,24 +452,8 @@ html {
       margin: 2.5em 0 1em;
     }
 
-    $indent-step: 20px;
+    h1, h2 { border-bottom: 1px solid #eaeaea; }
 
-    h2 { margin-left: 0; }
-    h3 { margin-left: $indent-step; }
-    h4 { margin-left: $indent-step * 2; }
-    h5 { margin-left: $indent-step * 3; }
-    h6 { margin-left: $indent-step * 4; }
-
-    @for $i from 2 through 6 {
-      h#{$i} {
-        margin-left: ($indent-step * ($i - 2));
-        
-        ~ * {
-          margin-left: ($indent-step * ($i - 2));
-        }
-      }
-    }
-  
     // 본문 단락
     p {
       margin: 1.2em 0;
