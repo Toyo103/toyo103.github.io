@@ -1,0 +1,35 @@
+name: Github Pages
+
+on:
+  push:
+    branches:
+      - master  # Here source code branch is `master`, it could be other branch
+  workflow_dispatch:  # 수동으로 실행
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Use GitHub Actions' cache to cache dependencies on servers
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .asdf/**
+            vendor/bundle
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/cache.key') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-
+
+
+      # Use GitHub Deploy Action to build and deploy to Github
+      - uses: jeffreytse/jekyll-deploy-action@v0.6.0
+        with:
+          provider: 'github'         # GitHub에 배포
+          token: ${{ secrets.GITHUB_TOKEN }} # GITHUB_TOKEN을 사용해 인증
+          repository: ''             # 현재 리포지토리 사용
+          branch: 'gh-pages'         # 배포할 브랜치
+          jekyll_src: './'           # Jekyll 소스 코드가 위치한 디렉토리 (기본은 루트 디렉토리)
+          jekyll_cfg: '_config.yml'  # Jekyll 설정 파일 (기본은 _config.yml)
+          ruby_ver: ''               # 사용하려는 Ruby 버전
+          bundler_ver: ''            # Bundler 버전
