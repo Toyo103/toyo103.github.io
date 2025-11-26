@@ -1,0 +1,2544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-translate-customization" content="108d9124921d80c3-80e20d618ff053c8-g4f02ec6f3dba68b7-c">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>자바 기초 정리1 (자바의 신 vol.1) | Toyo.log</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="자바 기초 정리1 (자바의 신 vol.1)">
+<meta name="author" content="Toyo">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="1. 자바 변수와 자료형">
+<meta property="og:description" content="1. 자바 변수와 자료형">
+<link rel="canonical" href="/cs/2025/07/22/%EC%9E%90%EB%B0%94-%EA%B8%B0%EC%B4%88-%EC%A0%95%EB%A6%AC-(%EC%9E%90%EB%B0%94%EC%9D%98-%EC%8B%A0-vol.1).html">
+<meta property="og:url" content="/cs/2025/07/22/%EC%9E%90%EB%B0%94-%EA%B8%B0%EC%B4%88-%EC%A0%95%EB%A6%AC-(%EC%9E%90%EB%B0%94%EC%9D%98-%EC%8B%A0-vol.1).html">
+<meta property="og:site_name" content="Toyo.log">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-07-22T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="자바 기초 정리1 (자바의 신 vol.1)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Toyo"},"dateModified":"2025-07-22T00:00:00+00:00","datePublished":"2025-07-22T00:00:00+00:00","description":"1. 자바 변수와 자료형","headline":"자바 기초 정리1 (자바의 신 vol.1)","mainEntityOfPage":{"@type":"WebPage","@id":"/cs/2025/07/22/%EC%9E%90%EB%B0%94-%EA%B8%B0%EC%B4%88-%EC%A0%95%EB%A6%AC-(%EC%9E%90%EB%B0%94%EC%9D%98-%EC%8B%A0-vol.1).html"},"url":"/cs/2025/07/22/%EC%9E%90%EB%B0%94-%EA%B8%B0%EC%B4%88-%EC%A0%95%EB%A6%AC-(%EC%9E%90%EB%B0%94%EC%9D%98-%EC%8B%A0-vol.1).html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="icon" href="">
+  <link rel="canonical" href="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-noto-sans@0.0.72/index.min.css">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script src="/assets/js/main.js"></script><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Toyo.log">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+<!-- and it's easy to individually load additional languages -->
+<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/languages/go.min.js" async></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// Init highlight js
+document.addEventListener('DOMContentLoaded', function(event) {
+  var els = document.querySelectorAll('pre code')
+
+  function addLangData(block) {
+    var outer = block.parentElement.parentElement.parentElement;
+    var lang = block.getAttribute('data-lang');
+    for (var i = 0; i < outer.classList.length; i++) {
+      var cls = outer.classList[i];
+      if (cls.startsWith('language-')) {
+        lang = cls;
+        break;
+      }
+    }
+    if (!lang) {
+      cls = block.getAttribute('class');
+      lang = cls ? cls.replace('hljs ', '') : '';
+    }
+    if (lang.startsWith('language-')) {
+      lang = lang.substr(9);
+    }
+    block.setAttribute('class', 'hljs ' + lang);
+    block.parentNode.setAttribute('data-lang', lang);
+  }
+
+  function addBadge(block) {
+    var enabled = ('true' || 'true').toLowerCase();
+    if (enabled == 'true') {
+      var pre = block.parentElement;
+      pre.classList.add('badge');
+    }
+  }
+
+  function handle(block) {
+    addLangData(block);
+    addBadge(block)
+    hljs.highlightBlock(block);
+  }
+
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    handle(el);
+  }
+});
+</script>
+
+<style>
+  /* code language badge */
+  /*
+  pre.badge::before {
+    content: attr(data-lang);
+    color: #fff;
+    background-color: #ff4e00;
+    padding: 0 .5em;
+    border-radius: 0 2px;
+    text-transform: uppercase;
+    text-align: center;
+    min-width: 32px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+  */
+
+  /* fix wrong badge display for firefox browser */
+  code > table pre::before {
+    display: none;
+  }
+</style>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe-lightbox.umd.min.js" async></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/umd/photoswipe.umd.min.js" async></script>
+<link href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/5.3.7/photoswipe.min.css" rel="stylesheet">
+<style>
+  .pswp .pswp__container .pswp__img {
+    background-color: white;
+  }
+</style>
+
+<script>
+  function initPhotoSwipe() {
+    let customOptions = {};
+
+    try {
+      const data = ``.replaceAll("=>", ":");
+      customOptions = JSON.parse(data);
+    } catch (e) {
+      console.info("Invalid custom photo previewer options! " + e.message);
+    }
+
+    // Define object and gallery options
+    const options = Object.assign(
+      {
+        gallery: "section.main",
+        children: "a.photo-swipe",
+        photo_scale: 2,
+        // dynamic import is not supported in UMD version
+        pswpModule: PhotoSwipe,
+      },
+      customOptions
+    );
+
+    const galleryEl = document.querySelector(options.gallery);
+    if (!galleryEl) {
+      return;
+    }
+
+    const imgEls = [];
+    const els = galleryEl.querySelectorAll("img:not(.emoji)");
+    els.forEach((el) => {
+      if (el.src.trim() == "") {
+        return;
+      }
+      if (!imgEls.includes(el)) {
+        imgEls.push(el);
+      }
+    });
+
+    if (imgEls.length === 0) {
+      return;
+    }
+
+    imgEls.forEach((imgEl) => {
+      imgEl.outerHTML = `
+      <a class="photo-swipe"
+        href="${imgEl.src}"
+        data-pswp-width="${
+          Math.max(imgEl.naturalWidth, imgEl.width) * options.photo_scale
+        }"
+        data-pswp-height="${
+          Math.max(imgEl.naturalHeight, imgEl.height) * options.photo_scale
+        }"
+        data-pswp-caption="${imgEl.getAttribute("caption") || imgEl.alt}"
+        target="_blank">
+        ${imgEl.outerHTML}
+      </a>`;
+    });
+
+    // Initialize PhotoSwipe 5
+    var lightbox = new PhotoSwipeLightbox(options);
+
+    lightbox.init();
+  }
+
+  window.addEventListener("load", initPhotoSwipe);
+</script>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="site-header " role="banner">
+
+  <div class="wrapper">
+    <div class="site-header-inner">
+<span class="site-brand"><a class="site-brand-inner" rel="author" href="/">
+  <img class="site-favicon" title="Toyo.log" src="" onerror="this.style.display='none'">
+  Toyo.log
+</a>
+</span><nav class="site-nav">
+          <input type="checkbox" id="nav-trigger" class="nav-trigger">
+          <label for="nav-trigger">
+            <span class="menu-icon">
+              <svg viewbox="0 0 18 15" width="18px" height="15px">
+                <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+              </svg>
+            </span>
+          </label>
+
+          <div class="trigger">
+<a class="page-link" href="/about.html">ABOUT</a><a class="page-link" href="/archives.html">ARCHIVES</a><a class="page-link" href="/categories.html">CATEGORIES</a><a class="page-link" href="/">HOME</a><a class="page-link" href="/tags.html">TAGS</a>
+
+
+
+
+
+
+
+
+
+<div class="page-link" style="display: inline;">
+
+
+
+<div id="google_translate_element" style="display: none;">
+</div>
+
+<div class="ct-language">
+  <ul class="list-unstyled ct-language-dropdown">
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="en">
+          
+          <img src="https://cdn.countryflags.com/thumbs/united-states-of-america/flag-400.png" title="English">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="fr">
+          
+          <img src="https://cdn.countryflags.com/thumbs/france/flag-400.png" title="French">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="zh-CN">
+          
+          <img src="https://cdn.countryflags.com/thumbs/china/flag-400.png" title="Chinese(Simple)">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ja">
+          
+          <img src="https://cdn.countryflags.com/thumbs/japan/flag-400.png" title="Japanese">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ko">
+          
+          <img src="https://cdn.countryflags.com/thumbs/south-korea/flag-400.png" title="Korean">
+          
+        </a>
+      </li>
+    
+      <li>
+        <a href="#" class="lang-select" data-lang="ru">
+          
+          <img src="https://cdn.countryflags.com/thumbs/russia/flag-400.png" title="Russian">
+          
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+  }, 'google_translate_element');
+
+  // Links to cross-origin destinations are unsafe
+  var gll = document.getElementsByClassName('goog-logo-link')[0];
+  if (gll) {
+    gll.setAttribute('rel', 'noopener');
+  }
+
+  function restoreLang() {
+    var iframe = document.getElementsByClassName('goog-te-banner-frame')[0];
+    if (!iframe) return;
+
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var restore_el = innerDoc.getElementsByTagName("button");
+
+    for (var i = 0; i < restore_el.length; i++) {
+      if (restore_el[i].id.indexOf("restore") >= 0) {
+        restore_el[i].click();
+        var close_el = innerDoc.getElementsByClassName("goog-close-link");
+        close_el[0].click();
+        return;
+      }
+    }
+  }
+
+  function triggerHtmlEvent(element, eventName) {
+    var event;
+    if (document.createEvent) {
+      event = document.createEvent('HTMLEvents');
+      event.initEvent(eventName, true, true);
+      element.dispatchEvent(event);
+    } else {
+      event = document.createEventObject();
+      event.eventType = eventName;
+      element.fireEvent('on' + event.eventType, event);
+    }
+  }
+
+  var googleCombo = document.querySelector("select.goog-te-combo");
+  var langSelect = document.querySelector('.ct-language');
+  langSelect.addEventListener('click', function(event) {
+    if (!event.target) {
+      return;
+    }
+
+    var selected = document.querySelector('.ct-language .ct-language-selected');
+    if (selected) {
+      selected.classList.remove('ct-language-selected');
+    }
+
+    var target = event.target;
+    while (target && target !== langSelect ) {
+      if (target.matches('.lang-select')) {
+        break;
+      }
+      target = target.parentElement;
+    }
+
+    if (target && target.matches('.lang-select')) {
+      var lang = target.getAttribute('data-lang');
+      if (googleCombo.value == lang) {
+        restoreLang();
+      } else {
+        target.parentElement.classList.add('ct-language-selected');
+        googleCombo.value = lang;
+        triggerHtmlEvent(googleCombo, 'change');
+      }
+    }
+
+    event.preventDefault();
+  });
+}
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
+</div>
+</div>
+        </nav>
+</div>
+  </div>
+</header>
+
+<script>
+  function initHeader() {
+    var lastScrollY = getScrollPos().y;
+    var documentElement = document.documentElement;
+
+    function storeScrollData() {
+      var y = getScrollPos().y;var scrollStatus = "";
+
+      if (y <= 0) {
+        scrollStatus = "top";
+      } else if ((window.innerHeight + y) >= document.body.offsetHeight) {
+        scrollStatus = "bottom";
+      } else {
+        var isScrollDown = (y - lastScrollY > 0) ? true : false;
+        scrollStatus = isScrollDown ? "down" : "up";
+      }
+
+      lastScrollY = y;
+      documentElement.setAttribute("data-scroll-status", scrollStatus);
+    }
+
+    window.addEventListener('scroll', function(e) {
+      storeScrollData();
+    });
+
+    storeScrollData();
+  }
+  document.addEventListener('DOMContentLoaded', initHeader);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  function hashLocate(hashValue) {
+    hashValue = hashValue.replace(/^.*#h-/, '');
+    hashValue = decodeURIComponent(hashValue);
+    var element = document.getElementById(hashValue);
+
+    if (!element) {
+      return;
+    }
+
+    var header = document.querySelector('header.site-header');
+    var headerRect = header.getBoundingClientRect();
+    var headerTop = Math.floor(headerRect.top);
+    var headerHeight = Math.floor(headerRect.height);
+    var scrollPos = getScrollPos();
+    var offsetY = element.offsetTop - (headerTop + headerHeight + 20);
+
+    if (offsetY == scrollPos.y) {
+      return;
+    }
+
+    if (headerTop == 0  && offsetY > scrollPos.y) {
+      offsetY += headerHeight + 2;
+    } else if (headerTop < 0  && offsetY < scrollPos.y) {
+      offsetY -= headerHeight - 2;
+    }
+
+    smoothScrollTo(offsetY);
+  }
+
+  // The first event occurred
+  window.addEventListener('load', function(event) {
+    if (window.location.hash) {
+      hashLocate(window.location.hash);
+    }
+  });
+
+  // The first event occurred
+  window.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() == 'a') {
+      hashLocate(event.target.getAttribute('href'));
+    }
+  });
+</script>
+<div class="theme-toggle">
+</div>
+
+
+
+
+<script>
+  (function() {
+    var sw = document.getElementById('theme-switch');
+    var html = document.getElementsByTagName('html')[0];
+    var nightModeOption = ('light' || 'auto').toLowerCase();
+    var storage = nightModeOption === 'manual'
+        ? localStorage
+        : sessionStorage;
+    var themeData = loadThemeData();
+
+    function saveThemeData(data) {
+      storage.setItem('theme', JSON.stringify(data));
+    }
+
+    function loadThemeData() {
+      var data = storage.getItem('theme');
+      try {
+        data = JSON.parse(data ? data : '');
+      } catch(e) {
+        data = { nightShift: undefined, autoToggleAt: 0 };
+        saveThemeData(data);
+      }
+      return data;
+    }
+
+    function handleThemeToggle(nightShift) {
+      themeData.nightShift = nightShift;
+      saveThemeData(themeData);
+      html.dataset.theme = nightShift ? 'dark' : 'light';
+      setTimeout(function() {
+        sw.checked = nightShift ? true : false;
+      }, 50);
+    }
+
+    function autoThemeToggle() {
+      // Next time point of theme toggle
+      var now = new Date();
+      var toggleAt = new Date();
+      var hours = now.getHours();
+      var nightShift = hours >= 19 || hours <=7;
+
+      if (nightShift) {
+        if (hours > 7) {
+          toggleAt.setDate(toggleAt.getDate() + 1);
+        }
+        toggleAt.setHours(7);
+      } else {
+        toggleAt.setHours(19);
+      }
+
+      toggleAt.setMinutes(0);
+      toggleAt.setSeconds(0);
+      toggleAt.setMilliseconds(0)
+
+      var delay = toggleAt.getTime() - now.getTime();
+
+      // auto toggle theme mode
+      setTimeout(function() {
+        handleThemeToggle(!nightShift);
+      }, delay);
+
+      return {
+        nightShift: nightShift,
+        toggleAt: toggleAt.getTime()
+      };
+    }
+
+    // Listen the theme toggle event
+    sw.addEventListener('change', function(event) {
+      handleThemeToggle(event.target.checked);
+    });
+
+    if (nightModeOption == 'auto') {
+      var data = autoThemeToggle();
+
+      // Toggle theme by local setting
+      if (data.toggleAt > themeData.autoToggleAt) {
+        themeData.autoToggleAt = data.toggleAt;
+        handleThemeToggle(data.nightShift);
+      } else {
+        handleThemeToggle(themeData.nightShift);
+      }
+    } else if (nightModeOption == 'manual') {
+      handleThemeToggle(themeData.nightShift);
+    } else {
+      var nightShift = themeData.nightShift;
+      if (nightShift === undefined) {
+        nightShift = nightModeOption === 'on';
+      }
+      handleThemeToggle(nightShift);
+    }
+  })();
+</script>
+<div id="click-to-top" class="click-to-top">
+  <i class="fa fa-arrow-up"></i>
+</div>
+<script>
+  (function () {
+    const clickToTop = document.getElementById('click-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        clickToTop.classList.add('show')
+      }else {
+        clickToTop.classList.remove('show')
+      }
+    });
+    clickToTop.addEventListener('click', () => {
+      window.smoothScrollTo(0);
+    });
+  })();
+</script>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <div class="framework">
+  <section class="main">
+
+     <div class="post">
+  <section>
+
+
+
+
+
+
+
+
+
+<header class="post-header">
+  <h1 class="post-title p-name" itemprop="name headline">자바 기초 정리1 (자바의 신 vol.1)</h1>
+  <h2 class="post-subtitle">자바의 신 vol.1을 참고하여 자바 기초 문법 정리 및 보완</h2>
+
+  <div class="post-meta">
+    <time class="dt-published" datetime="2025-07-22T00:00:00+00:00" itemprop="datePublished"><i class="fa fa-calendar"></i> Jul 22, 2025
+    </time>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <span class="post-reading-time left-vsplit"><i class="fa fa-clock-o"></i> About 41 mins</span>
+  </div>
+<div class="post-tags"><a class="post-tag" href="/tags.html#java">#java</a></div></header>
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+    <div class="post-content e-content" itemprop="articleBody">
+
+      <h2 id="1-자바-변수와-자료형">1. 자바 변수와 자료형</h2>
+
+<h3 id="11-변수의-종류">1.1 변수의 종류</h3>
+
+<ul>
+  <li>자바의 변수는 생명주기에 따라 4가지 종류로 나뉜다.
+    <ul>
+      <li>지역 변수
+        <ul>
+          <li>중괄호 내에서 선언된 변수</li>
+          <li>생명주기도 해당 중괄호 내에서만 유효함</li>
+          <li>자바에선 재선언이 허용되지 않으므로 해당 중괄호 내에서 동일한 이름을 갖는 지역 변수를 선언하면 컴파일 에러가 발생함</li>
+        </ul>
+      </li>
+      <li>매개 변수
+        <ul>
+          <li>메소드에 넘겨주는 변수</li>
+          <li>메소드가 호출될 대 생명이 시작되어 메소드가 끝나면 소멸</li>
+        </ul>
+      </li>
+      <li>인스턴스 변수
+        <ul>
+          <li>메소드 밖, 클래스 안에 선언된 변수</li>
+          <li>객체가 생성될 때 생명이 시작되며, 그 객체를 참조하고 있는 다른 객체가 없으면 소멸됨</li>
+        </ul>
+      </li>
+      <li>클래스 변수
+        <ul>
+          <li>static 예약어가 붙은 인스턴스 변수</li>
+          <li>클래스가 처음 로드될 때 생명이 시작되고, 자바 프로그램이 끝날 때 소멸됨</li>
+          <li>클래스는 객체를 처음 생성하거나, 해당 클래스 변수에 접근하거나, 동적으로 로드하거나, 해당 클래스의 자식 클래스가 로드될 때 같이 로드됨</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="12-자료형의-종류">1.2 자료형의 종류</h3>
+
+<ul>
+  <li>기본 자료형
+    <ul>
+      <li>바로 값을 넣어 초기화가 가능</li>
+      <li>자료형의 첫 비트는 부호를 표시하는데 사용되며 음수의 범위가 양수의 범위보다 하나 더 큼. 부호비트가 1이고 나머지 비트가 0일 경우를 해당 타입의 최소값으로 사용하기 때문 (-2^n ~ -2^n-1)</li>
+      <li>따라서 어떤 자료형에 최소값을 넣고 1을 빼면 최대값이, 최대값을 넣고 1을 더하면 최소값이 됨 (최소값이 10000000 이면 최대값은 01111111이기 때문)</li>
+      <li>소수형 타입은 부동 소수점 연산을 사용하므로 값이 범위를 넘어서면 정확성이 보장되지 않음 -&gt; 대신 java.match.BigDemical이라는 클래스를 사용</li>
+      <li>자바의 모든 자료형은 값을 지정하지 않으면 기본값 사용. 기본 자료형은 각자의 기본값을 가지고 참조형은 null. 그러나 지역 변수일 경우는 기본값이 자동 적용되지 않음</li>
+      <li>자바는 계산 시 두 피연산자가 정수형일 때 결과 값도 정수형으로 취급하므로 결과가 소수값이어도 소수형으로 결과가 나오진 않음. 소수점 아래까지의 결과를 원하면 두 피연산자를 소수형으로 할 필요가 있음</li>
+      <li>종류
+        <ul>
+          <li>정수형
+            <ul>
+              <li>byte  (-2^7 ~ 2^7-1)</li>
+              <li>short (-2^15 ~ 2^15-1)</li>
+              <li>int   (-2^31 ~ 2^31-1)</li>
+              <li>long  (-2^63 ~ 2^63-1)
+                <ul>
+                  <li>long 자료형 초기화 시 L을 붙이지 않고 int 범위를 초과하는 값을 넣으면 에러 발생. 자바에서 기본적으로 숫자를 명시하면 int라고 생각하기 때문에 선언 시 L을 붙여주지 않으면 int로 인식됨</li>
+                </ul>
+              </li>
+              <li>char
+                <ul>
+                  <li>정수형 중 유일하게 부호가 없음</li>
+                  <li>내부적으로 아스키/유니코드에 대응하는 숫자값을 저장하는 정수형 타입이지만 데이터 처리 방식에는 차이가 있음</li>
+                  <li>‘a’와 같은 문자를 저장할 수 있으므로 char 같은 정수형인 다른 자료형들도 가능한 범위일 경우 해당 문자 저장 가능</li>
+                  <li>‘a’같은 문자와 \u + 4자리의 16진수 값을 넣는 것이 대표적. 해당 값의 유니코드 번호를 지정해도 초기화 가능</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>소수형
+            <ul>
+              <li>float</li>
+              <li>double</li>
+            </ul>
+          </li>
+          <li>boolean</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>참조 자료형
+    <ul>
+      <li>new 키워드를 사용해서 초기화 가능</li>
+      <li>String 만은 예외적으로 new을 사용하지 않고도 초기화 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-연산자와-형변환">2. 연산자와 형변환</h2>
+
+<h3 id="21-연산자">2.1 연산자</h3>
+
+<ul>
+  <li>연산자는 단항연산자   &gt;   *, /, %   &gt;   +, -   순으로 우선순위가 높다</li>
+  <li>단항연산자 중 ~(틸드)는 2진수로 되어 있는 비트 값을 전부 거꾸로 바꾸는 데 사용</li>
+  <li>등가 비교 연산자 (==, !=)는 같은 종류(정수형과 소수형도 같은 종류)끼리 비교가 가능하며 자바의 모든 기본 자료형과 참조 자료형에서 사용 가능. 참조 자료형은 주소값을 비교함</li>
+  <li>자바의 연산자들은 타입별로 사용 가능한 연산자가 정해져 있음. douable, float는 소수형이므로 비트 연산이 불가능함</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">&amp;</code>, <code class="language-plaintext highlighter-rouge">|</code>, <code class="language-plaintext highlighter-rouge">^</code>(값이 서로 다르면 true, 같으면 false) 연산자는 숫자에 사용하면 비트 연산을, boolean 타입 사이에 사용하면 논리 연산을 수행</li>
+  <li>참조 자료형은 + 이항 연산자만 사용 가능. 사용 시 해당 클래스에 있는 toString() 메소드 결과끼리 더함</li>
+</ul>
+
+<h3 id="22-형변환">2.2 형변환</h3>
+
+<ul>
+  <li>기본 자료형 중 boolean 타입은 숫자로 변환할 수 없기 때문에 형변환 불가능</li>
+  <li>더 범위가 넓은 타입으로 변환할 때는 문제가 없으나, 더 범위가 작은 타입으로 변환할 때는 소괄호 안에 타입을 명시해주어야 하며 예상치 못한 값이 나올수도 있음</li>
+</ul>
+
+<h2 id="3-조건문과-반복문">3. 조건문과 반복문</h2>
+
+<h3 id="31-조건문">3.1 조건문</h3>
+<ul>
+  <li>switch 문
+    <ul>
+      <li>한번 case 조건을 만족시켜 줬다면 그다음 break가 올때까지 모든 case 통과하여 실행문 실행</li>
+      <li>case문으로 이루어진 switch 문의 끝에는 default 문이 올 수 있으며 앞에 있는 조건에 맞지 않는 경우 실행됨. case문에서 한번이라도 걸렸으면 실행안됨</li>
+      <li>switch() 괄호 안의 비교 대상 변수는 정수형만 사용 가능 했으나 JDK7부터 String도 사용 가능해짐</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="32-반복문">3.2 반복문</h3>
+<ul>
+  <li>do-while 문 : 한 번은 꼭 실행시키고 싶을 때 사용. 마지막 while의 소괄호 뒤에 반드시 세미콜론을 입력해야 함</li>
+  <li>label : 반복문에 이름을 부여하여(라벨명 : 반복문 형태로 정의) 특정 시점에 해당 반복문을 빠져나오거나(break 라벨명) 위로 돌아가도록 (continue 라벨명)할 수 있음</li>
+</ul>
+
+<h2 id="4-배열">4. 배열</h2>
+
+<h3 id="41-배열의-선언과-기본값">4.1 배열의 선언과 기본값</h3>
+<ul>
+  <li>배열 선언 시 대괄호는 타입과 변수 사이에 또는 변수명 뒤에 빈 상태로 위치해야함</li>
+  <li>참조 자료형이므로 new 키워드를 사용해 생성하거나, 중괄호를 사용해서 한번에 선언 및 초기화</li>
+  <li>지역변수는 원래 기본값이 없으나, 배열에서는 지역 변수라고 해도 배열 크기만 정해주면 초기화 안해도 각 배열의 기본값이 할당됨</li>
+  <li>기본 자료형 배열의 기본값은 각 자료형의 기본값과 동일
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  byteArray[0]=0
+  shortArray[0]=0
+  intArray[0]=0
+  longArray[0]=0
+  floatArray[0]=0.0
+  doubleArray[0]=0.0
+  charArray[0]=[ ]    //기본값은 ₩u0000으로 화면에 출력될 때에는 한 칸의 공백으로 보임
+  booleanArray[0]=false
+</code></pre></div>    </div>
+  </li>
+  <li>모든 참조자료형은 초기화 하지 않으면 null값을 기본적으로 가짐</li>
+  <li>참고 : 초기화한 객체를 출력하면, 객체가 기본으로 가지는 toString() 메소드가 해당 객체의 클래스이름@메모리주소기반으로 생성된 16진수 해시코드를 반환하는 걸 확인할 수 있음
+    <ul>
+      <li>배열의 경우 [L클래스이름;@해당 배열의 고유번호. L은 해당 배열이 배열이라는 것을, L은 참조 자료형임을 의미</li>
+      <li>boolean: Z, byte : b, char : C, double : D, float : F, int : I, long : J, short : S</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="42-2차원-배열">4.2 2차원 배열</h3>
+<ul>
+  <li>아래와 같이 선언 및 초기화
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  int [] twoDim[]; 
+  int twoDim[][];
+
+  twoDim = new int[2][3];
+</code></pre></div>    </div>
+  </li>
+  <li>크기를 지정할 경우에는 반드시 한번에 설정하던지 1차원만 설정해야 함
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  twoDim = new int[2][3];
+  twoDim = new int[2][];
+</code></pre></div>    </div>
+  </li>
+  <li>2차원은 1차원 크기 설정 뒤에도 설정가능. 2차원 방 크기는 서로 다를 수 있음
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  twoDim = new int[2][];
+  twoDim[0] = new int[3];
+  twoDim[1] = new int[2];
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>중괄호를 사용해서 한번에 선언 및 초기화 가능.</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  int [][]twoDim = {{1, 2, 3}, {4, 5, 6}};
+</code></pre></div>    </div>
+  </li>
+  <li>2차원 배열에서 .length로 배열 크기를 확인할 때 1차원, 2차원 배열에 각각 .length를 붙여서 알아내야 하며, twoDim[0][0]는 배열 객체가 아닌 값이 들어있는 공간을 나타내기 때문에 실행 시 오류 발생
+    <ul>
+      <li>점(.)은 참조 자료형에서만 찍을 수 있으며 기본 자료형에서는 사용 불가
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  for(int i=0; i&lt;twoDim.length; i++){
+  for(int j=0; j &lt;twoDim[i].length; j++){
+      ...
+  }
+  }
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>다만 위와 같이 .length를 사용하여 for 루프가 수행될 때마다 길이를 얻어오는 건 성능상 좋지 않으므로 아래와 같이 사용
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  int iLength = twoDim.length;
+  for(int i = 0; i &lt; iLength; i++){
+      int jLength = twoDim[i].length;
+      for(int j = 0; j &lt; jLength; j++){
+          ...
+      }
+  }
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="43-배열을-위한-for-루프">4.3 배열을 위한 for 루프</h3>
+<ul>
+  <li>
+    <p>자바에서 제공되는 Collection이라는 자료구조를 처리할 때 for 루프를 보다 쉽게 사용 가능. JDK5부터 지원됨</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  for(타입이름 임시 변수명 : 반복대상객체){
+
+  }
+
+  //사용 예시
+  int [][]twoDim= {{1, 2, 3}, {4, 5, 6}};
+  for(int[] dimArray : twoDim){
+      for(int data : dimArray){
+          System.out.println(data);
+      }
+  }
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>반복대상객체로는 Collection의 일부 클래스 사용 가능. 단, 이 루프 사용시 배열의 현재 인덱스는 따로 계산해야 함</p>
+  </li>
+</ul>
+
+<h3 id="44-main-메소드의-배열-인자">4.4 main 메소드의 배열 인자</h3>
+<ul>
+  <li>main 메소드의 배열 인자 String ars[]에 아래와 같이 값을 전달할 수 있음 ([“a”, “b”, “c”, “d”] 배열 전달)
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public class ArrayMain {
+      public static void main(String args[]){
+          ...
+      }
+  }
+</code></pre></div>    </div>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  $ javac ArrayMain.java
+  $ java ArrayMain a b c d
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="5-참조-자료형">5. 참조 자료형</h2>
+
+<h3 id="51-this-예약어">5.1 this 예약어</h3>
+<ul>
+  <li>‘이 객체’를 의미. 생성자와 메소드 안에서 사용 가능.</li>
+  <li>객체의 변수와 매개 변수의 이름이 동일할 때 서로 구분하기 위해서 사용</li>
+</ul>
+
+<h3 id="52-메소드-overloading">5.2 메소드 overloading</h3>
+<ul>
+  <li>자바에서는 타입이 다르면 다른 메소드로, 타입이 같고 변수 이름이 같으면 같은 메소드로 인식됨</li>
+  <li>메소드의 이름을 같게 하고, 매개 변수만을 다르게 하는것을 overloading이라고 함. 만약 이름, 매개변수가 같은데 리턴 타입이 다르면 컴파일러가 메소드 호출 시 어느 쪽을 호출해야 할지 알 수 없게 되기 때문에 컴파일 오류가 발생</li>
+  <li>리턴 타입은 overloading 기준은 아니므로 메소드명만 동일하고 매개변수, 리턴 타입이 달라도 overloading에 해당함</li>
+  <li>같은 역할을 하는 메소드는 (매개변수가 달라지더라도) 같은 메소드 이름을 가져야 한다는 모토로 사용하는 것</li>
+</ul>
+
+<h3 id="53-static-메소드">5.3 static 메소드</h3>
+<ul>
+  <li>객체를 생성하지 않아도 호출 가능한 메소드. 단, 해당 메소드 안에서는 클래스(static) 변수만 사용 가능
+    <ul>
+      <li>단지 static 메소드에서 사용하기 위해 변수를 static으로 선언하는것은 지양해야 함. 인스턴스 변수에 static을 붙이면 해당 클래스의 모든 인스턴스 객체에서 하나의 값을 바라보게 됨</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="54-static-블록">5.4 static 블록</h3>
+<ul>
+  <li>해당 클래스의 인스턴스 객체를 여러개 생성해야하지만, 한번만 호출되어야 하는 코드가 있을 경우 사용</li>
+  <li>선언 위치 상관없이 무조건 생성자보다 먼저 실행되며 메소드가 아닌 클래스 내에 선언되어야 함</li>
+  <li>static 메소드와 마찬가지로 static 블록 안에서는 static한 것들만 호출 가능</li>
+  <li>생성자가 불리지 않아도 해당 클래스에 대한 참조가 발생하자마자 호출되므로 static 인스턴스 변수의 기본값을 덮어 씌움
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public class StaticBlock {
+      static int data = 1;
+      public StaticBlock(){
+          ...
+      }
+
+      static {
+          data = 3;
+      }
+
+      static {
+          data = 5;
+      }
+
+      public static int getData(){
+          return data;
+      }
+  }
+
+  pulic void ddd() {
+      // StaticBlock 클래스에 대한 참조 발생
+      // data=5 출력됨
+      System.out.println("data=" + StaticBlock.getData()); 
+      StaticBlock block1 = new StaticBlock();
+  }
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="55-pass-by-value-pass-by-reference">5.5 Pass by Value, Pass by Reference</h3>
+<ul>
+  <li>모든 기본 자료형은 Pass by Value, 참조 자료형은 값이 아닌 참조가 전달되는 Pass by Reference</li>
+  <li>String b = “z”와 String b = new String(“z”)는 동일하게 new를 사용하여 객체를 생성한 것과 같기 때문에, 호출하는 함수에 인자로 String 변수를 전달해도 참조가 아닌 객체가 새로 생성(복사)되어 넘어간 것이 됨
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  ...
+  String a = "a";
+  passByValue(b);
+  public void passByValue(String b){
+      b = "b";    // 여전히 a 변수의 값은 "a"로 유지됨
+  }
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="56-매개변수를-임의의-개수만큼-전달하기">5.6 매개변수를 임의의 개수만큼 전달하기</h3>
+<ul>
+  <li>함수로 넘길 매개 변수의 수를 정하기 애매한 경우 아래와 같이 사용할 수 있으나 넘길 숫자들을 직접 배열로 만든 후 넘겨줘야 한다는 단점이 있음
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> ...
+ varargs.calculateNumbersWithArray(new int[]{1, 2, 3, 4, 5});
+ public void calculateNumbersWithArray(int []numbers){
+     ...
+ }
+</code></pre></div>    </div>
+  </li>
+  <li>아래와 같이 “타입…변수명”으로 선언해도 마찬가지로 numbers는 배열로 인식되며, 함수 호출 시 필요한만큼 매개변수를 바로 넘길 수 있어 편리함
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  ...
+  varargs.calculateNumbers(1, 2, 3, 4, 5);
+  public void calculateNumbers(int...numbers){
+      ...
+  }
+</code></pre></div>    </div>
+    <ul>
+      <li>해당 방식은 하나의 메소드에서 한 번만 사용 가능하고, 여러 매개 변수가 있다면 가장 마지막에 선언해야 함
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public void arbitrary(String message, int...numbers){   //해당 매개변수 마지막으로
+      ...
+  }
+</code></pre></div>        </div>
+      </li>
+      <li>System.out.printf() 메소드는 아래와 같이 정의되어 가장 앞에 출력하는 포맷을 선언하고, 뒤에는 Object라는 타입의 args를 임의의 개수만큼 받을 수 있음
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  printf(String format, Object...args)   //format 문자열에 정의한 포맷 수만큼 args로 전달하여 출력할 수 있음
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="6-패키지">6. 패키지</h2>
+
+<h3 id="61-패키지-선언-시-규칙">6.1 패키지 선언 시 규칙</h3>
+<ul>
+  <li>소스의 가장 첫 줄에 있어야 함</li>
+  <li>패키지 선언은 소스 하나에 하나만 있어야 함</li>
+  <li>package 선언과 파일 시스템의 디렉토리 구조가 일치해야 컴파일 또는 실행 시 해당 소스 또는 클래스 파일을 찾을 수 있음</li>
+  <li>컴파일 시 javac 명령에 package 구조에 맞는 소스 파일 경로를 줘야 함. 따라서 패키지 루트 디렉토리(package com.example로 정의한 경우 com이 패키지 루트 디렉토리)의 디렉토리나 그 상위 디렉토리에선 컴파일 가능하지만 하위 디렉토리에선 안됨
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  # Main.java에 package com.example로 선언 시
+
+  cd src
+  javac com/example/Main.java
+  # 현재 디렉토리(src)가 패키지 루트
+  # 클래스 파일도 com/example 밑에 Main.class로 생성됨
+
+  # 또는
+  javac -d out src/com/example/Main.java
+  # 패키지 루트 디렉토리의 상위 디렉토리에서 컴파일하지만 package 구조에 맞는 소스 파일 경로를 포함함
+  # -d out: out이 클래스파일 기준 패키지 루트. 사용 시 클래스 파일 기준 패키지 루트와 소스 파일 기준 패키지 루트가 달라짐. 소스 파일 경로와 클래스 파일 경로를 다르게 하고 싶을 때 사용
+  # out 폴더 밑에 package 선언과 동일하게 디렉토리 구조 생성됨(com/example 폴더 생성)
+</code></pre></div>    </div>
+  </li>
+  <li>클래스 파일 실행 시에는 -cp 옵션으로 클래스 파일 기준 패키지 루트 패키지 디렉토리 지정 가능
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  java -cp out com.example.Main
+</code></pre></div>    </div>
+  </li>
+  <li>패키지를 사용하는 클래스(별도의 package 선언을 한 클래스)를 실행할 때는 항상 패키지명.클래스명 전체를 포함해서 실행해야 함</li>
+  <li>패키지 이름은 모두 소문자로 지정해야 하며, 자바의 예약어를 포함할 수 없음</li>
+</ul>
+
+<h3 id="62-패키지-import">6.2 패키지 import</h3>
+<ul>
+  <li>자바에서는 같은 패키지에 있는 클래스들과 java.lang 패키지에 있는 클래스들만 찾을 수 있음. 그외에는 import 패키지명.클래스명을 정의해줘야 함</li>
+  <li>import로 불러온 클래스를 따로 컴파일하지 않았어도 해당 클래스를 사용하는 소스 파일을 컴파일하면 (그리고 import한 패키지명과 실제 해당 클래스의 소스 파일이 있는 디렉토리 경로가 일치하면) 해당 클래스를 먼저 컴파일한 후 호출하는 클래스를 컴파일 함</li>
+  <li>특정 패키지의 하위 패키지들을 모두 import하고자 할 경우 import c.javapackage.sub.*;사용
+    <ul>
+      <li>단, 해당 패키지의 바로 하위 패키지만 import 하므로 import c.*를 한다고 해서 c.javapackage의 하위 패키지들까지 import 되진 않음</li>
+      <li>폴더 구조상 상위 패키지에 있는 클래스와 하위 패키지에 있는 클래스의 상관관계는 자바 언어 상에는 없으며, 단지 논리적으로 어떤 패키지 하위에 있는지 여부를 따지기 위함임</li>
+    </ul>
+  </li>
+  <li>클래스안에 static 메소드나 변수가 있을 경우 import static을 사용하여 해당 메소드나 변수를 직접 import 할 수 있음
+    <ul>
+      <li>import static을 사용안 할 경우 해당 클래스를 import하여 클래스명.static_메소드/변수 형태로 사용해야 함</li>
+      <li>import 클래스명.*로 해당 static 메소드/변수 import할 때도 마찬가지로 import static 사용</li>
+      <li>static 메소드/변수가 직접 import되므로 해당 메소드/변수를 import 한 클래스에 이름이 중복되는 메소드/변수가 있을 수 있는데, 이 경우 자신의 클래스에 있는 변수/메소드가 더 우선됨</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="63-자바의-접근-제어자">6.3 자바의 접근 제어자</h3>
+<ul>
+  <li>public : 누구나 접근 가능</li>
+  <li>protected : 같은 패키지 내에 있거나 상속받은 경우에만 접근 가능</li>
+  <li>package-private : 아무런 접근 제어자를 적어주지 않은 경우. 같은 패키지 내에 있을 때만 접근 가능</li>
+  <li>private : 해당 클래스 내에서만 접근 가능</li>
+  <li>구조상으론 public &gt; protected &gt; package-private &gt; private</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>지시자</th>
+      <th>해당 클래스 안에서</th>
+      <th>같은 패키지에서</th>
+      <th>상속받은 클래스에서</th>
+      <th>import한 클래스 또는 그외에서</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>public</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+    </tr>
+    <tr>
+      <td>protected</td>
+      <td>O</td>
+      <td>O</td>
+      <td>O</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>package-private</td>
+      <td>O</td>
+      <td>O</td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+    <tr>
+      <td>private</td>
+      <td>O</td>
+      <td>X</td>
+      <td>X</td>
+      <td>X</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>유의점 : public으로 선언된 클래스가 소스 내에 있다면 그 소스 파일의 이름은 public과 동일해야 함
+    <ul>
+      <li>소스 파일명과 일치하는 클래스가 있어야 하는 건 아님</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="7-상속">7. 상속</h2>
+
+<h3 id="71-상속-예약어와-동작">7.1 상속 예약어와 동작</h3>
+<ul>
+  <li>extends는 클래스를 상속 받기 위해 사용하는 자바 예약어. 자바에선 하나의 클래스만 상속 가능</li>
+  <li>자식 클래스에서는 부모 클래스에 있는 public, protected로 선언된 모든 인스턴스 및 클래스 변수와 메소드 사용 가능. package-private는 패키지가 같을 경우 사용 가능</li>
+  <li>상속이란 분류. A는 B의 한 종류이다 (=is kind of)</li>
+  <li>자식 클래스 생성자에서 super(매개변수)를 명시적으로 지정하지 않으면 컴파일 시 자동으로 부모클래스의 기본생성자를 호출하는 super()가 추가됨. 따라서 부모 클래스에 기본 생성자가 없으면 에러 발생할 수 있음</li>
+  <li>super()는 반드시 자식 클래스의 생성자에서 가장 첫줄에 선언되어야 함</li>
+</ul>
+
+<h3 id="72-메소드-오버라이딩">7.2 메소드 오버라이딩</h3>
+<ul>
+  <li>부모 클래스 메소드와 동일한 시그니처(메소드 이름, 매개변수 타입 및 개수)를 갖는 자식 클래스의 메소드가 존재할 때 성립됨 (다르면 오버로딩)</li>
+  <li>부모 클래스의 메소드와 이름이 같으면서 리턴 타입이 다른 메소드는 자식클래스에서 정의할 수 없음
+    <ul>
+      <li>변수 이름은 같을 수 있으나 권장하지 않음</li>
+    </ul>
+  </li>
+  <li>접근제어자는 부모 클래스 메소드와 다르게 할 수 있으나, 확대되는 것만 가능하고 축소되는 것은 안됨 (public &gt; protected &gt; package-private &gt; private)</li>
+</ul>
+
+<h3 id="73-참조-자료형의-형변환">7.3 참조 자료형의 형변환</h3>
+<ul>
+  <li>기본 자료형에서 데이터 범위가 더 확장되는 경우(int -&gt; long)와 마찬가지로 참조 자료형에서도 자식 클래스 타입을 부모 클래스 타입으로 형 변환시 명시적인 형 변환이 필요 없음 (데이터의 범위가 넓어지는 거지 사용 가능한 변수나 메소드가 많아진다는 걸 의미하진 않음)</li>
+  <li>부모 타입 객체를 자식 타입으로 형 변환 시에는 명시적인 타입 지정 필요. 이때, 변환하더라도 실제 들어있는 객체가 자식 타입이 아니면 사용 불가능</li>
+  <li>개발 편의상 부모 타입 배열 등에 여러가지 자식 타입의 값을 담아야 하는 경우가 있음</li>
+  <li>instanceof 예약어를 사용하면 객체의 실제 타입을 확인할 수 있는데, 부모 타입으로 체크해도 true가 반환됨</li>
+  <li>다형성 : 부모 타입 변수에 자식 타입 객체가 들어있어도 실제 호출되는 것은 원래 객체(자식 타입 객체)에 있는 메소드임</li>
+</ul>
+
+<h2 id="8-자바-api">8. 자바 API</h2>
+
+<h3 id="81-api">8.1 API</h3>
+<ul>
+  <li>JDK에는 매우 많은 클래스와 메소드를이 포함되어 있으며, JDK에 포함된 클래스들 외에도 엄청나게 많은 클래스들이 존재함. 이러한 클래스들을 설명하는 API 문서는 HTML로 구성됨</li>
+  <li>API 문서는 클래스 및 메소드에 API에 명시되도록 하기 위한 주석을 달고 jdk/bin 디렉터리에 있는 javadoc 명령어만 실행하면 자동으로 생성됨</li>
+</ul>
+
+<h3 id="82-api-문서-상세-정보화면">8.2 API 문서 상세 정보화면</h3>
+<ul>
+  <li>패키지와 클래스 / 인터페이스 이름</li>
+  <li>클래스 상속 관계 다이어그램
+    <ul>
+      <li>해당 클래스가 어떤 클래스들의 상속을 받았는지 간단한 계단식으로 표시</li>
+    </ul>
+  </li>
+  <li>직속 자식 클래스
+    <ul>
+      <li>현재 보고 있는 클래스를 확장한 클래스들의 목록</li>
+    </ul>
+  </li>
+  <li>알려진 모든 하위 인터페이스 목록
+    <ul>
+      <li>인터페이스에 대한 문서일 경우 해당 인터페이스 상속받은 인터페이스 목록</li>
+    </ul>
+  </li>
+  <li>알려진 모든 구현한 클래스 목록
+    <ul>
+      <li>해당 인터페이스를 구현한 클래스들의 목록</li>
+    </ul>
+  </li>
+  <li>구현한 모든 인터페이스 목록
+    <ul>
+      <li>클래스에서 구현한 모든 인터페이스 목록</li>
+    </ul>
+  </li>
+  <li>클래스 / 인터페이스의 선언 상태
+    <ul>
+      <li>클래스가 어떤 접근 제어자를 사용했는지, final 클래스인지 등을 확인</li>
+    </ul>
+  </li>
+  <li>클래스 / 인터페이스의 설명
+    <ul>
+      <li>클래스의 용도, 사용법, 사용 예시 등</li>
+      <li>Since : 해당 클래스가 JDK 몇 버전부터 추가되었는지 명시. 클래스만이 아닌 클래스에 선언된 상수 필드나 메소드에도 Since 표시되어 있는 경우가 있음</li>
+      <li>See also : 해당 클래스와 관련되어 있는 모든 클래스나 인터페이스, 메소드 등의 링크 제공</li>
+    </ul>
+  </li>
+  <li>내부 클래스 종합
+    <ul>
+      <li>클래스 안에 내부 클래스가 public하게 선언된 경우 그에 대한 내용 제공</li>
+    </ul>
+  </li>
+  <li>상수 필드 종합
+    <ul>
+      <li>public static으로 선언한 상수 필드</li>
+    </ul>
+  </li>
+  <li>생성자 종합</li>
+  <li>메소드 종합
+    <ul>
+      <li>클래스에 선언되어 있는 모든 public 및 protected 메소드에 대한 종합 정보</li>
+      <li>각 메소드의 리턴 타입, 매개 변수, static 여부, 접근제어자</li>
+      <li>javadoc 설명에 따르면 API 문서 생성 시 private도 보이도록 할 수 있음</li>
+    </ul>
+  </li>
+  <li>부모 클래스로부터 상속받은 메소드 들</li>
+  <li>상수 필드 상세 설명
+    <ul>
+      <li>선언된 상수 필드가 어떤 내용을 제공하는지에 대한 상세설명</li>
+      <li>Since, See Also가 제공되기도 함</li>
+    </ul>
+  </li>
+  <li>생성자 상세 설명
+    <ul>
+      <li>해당 생성자를 어떻게 사용하고, 매개 변수, 리턴 값 정보와 이 생성자에서 던지는 예외는 언제 발생하는지 등</li>
+      <li>Since, See Also가 제공되기도 함</li>
+    </ul>
+  </li>
+  <li>메소드 상세 설명
+    <ul>
+      <li>Since, See Also가 제공되기도 함</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="83-api-문서-header--footer에-있는-링크">8.3 API 문서 Header / Footer에 있는 링크</h3>
+<ul>
+  <li>OVERVIEW
+    <ul>
+      <li>전체 패키지에 대한 설명 화면. Java SE 모듈과 JDK 모듈과 그 외 모듈로 분하여 정리됨</li>
+    </ul>
+  </li>
+  <li>MODULE
+    <ul>
+      <li>패키지 묶음 설명화면. Java SE 모듈과 JDK 모듈과 그 외 모듈 등</li>
+    </ul>
+  </li>
+  <li>PACKAGE
+    <ul>
+      <li>현재 보고 있는 클래스가 속한 패키지의 모든 인터페이스, 클래스, 예외 등 간단한 설명</li>
+    </ul>
+  </li>
+  <li>CLASS
+    <ul>
+      <li>USE 페이지에서 클래스 상세 설명으로 넘어가는 링크 클릭하여 이동</li>
+    </ul>
+  </li>
+  <li>USE
+    <ul>
+      <li>현재 보고 있는 패키지, 클래스, 인터페이스 등을 사용(매개변수나 멤버 변수 및 기타 등등)하는 모든 목록 나열</li>
+      <li>처음 보는 클래스가 어디 사용되는지 확인하기 좋음</li>
+    </ul>
+  </li>
+  <li>TREE
+    <ul>
+      <li>클래스가 속한 패키지에 있는 모든 클래스들의 상속 관계를 Tree 형태로 제공</li>
+    </ul>
+  </li>
+  <li>DEPRECATED
+    <ul>
+      <li>JDK에 포함된 클래스/메소드 중 deprecated 클래스나 메소드 목록</li>
+    </ul>
+  </li>
+  <li>INDEX
+    <ul>
+      <li>A부터 Z까지의 알파벳 클릭하여 각 알파벳에 해당하는 클래스, 인터페이스, 메소드, static 변수 등의 색인을 오름차순으로 제공</li>
+    </ul>
+  </li>
+  <li>HELP
+    <ul>
+      <li>API 문서에 대한 간단 설명</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="9-javalangobject">9. java.lang.Object</h2>
+
+<h3 id="91-object-클래스의-메소드">9.1 Object 클래스의 메소드</h3>
+<ul>
+  <li>자바에서는 기본적으로 아무런 상속을 받지 않을 경우 java.lang.Object 클래스를 확장함. 따라서 Object 클래스의 메소드는 모든 클래스에서 사용가능</li>
+  <li>주요 메소드
+    <ul>
+      <li>toString()
+        <ul>
+          <li>객체가 System.out.println() 메소드에 매개 변수로 들어가거나 객체에 대하여 더하기 연산 할때 자동 호출됨</li>
+          <li>String을 제외한 참조 자료형에 더하기 연산을 수행하면 자동으로 toString() 메소드가 호출되어 그 리턴 값이 더해지게 됨</li>
+        </ul>
+      </li>
+      <li>equals()
+        <ul>
+          <li>== 연산자는 참조 자료형의 경우 단순 주소값을 비교하므로 equals() 메소드를 오버라이딩 하여 사용. 오버라이딩 하지 않으면 equals() 메소드에서는 hashCode() 메소드 리턴 값인 주소값으로 비교함</li>
+          <li>만약 어떤 두 개의 객체가 서로 동일하다면 hashCode() 값 역시 무조건 동일해야 하므로 equals() 메소드를 오버라이딩 시 hashCode()도 같이 해야함</li>
+        </ul>
+      </li>
+      <li>hashcode()
+        <ul>
+          <li>기본적으로 객체의 메모리 주소를 16진수로 반환</li>
+          <li>자바 API 문서에는 equals(), hashcode() 오버라이딩 시 지켜야 할 규칙을 명시하고 있는데, 이러한 제약들 때문에 해당 메소드들을 직접 작성하는건 권장하지 않으며 개발 툴에서 자동 생성해주는 기능을 사용하는 것이 좋음</li>
+        </ul>
+      </li>
+      <li>wait(), notify(), notifyAll()
+        <ul>
+          <li>스레드 처리 시 사용</li>
+        </ul>
+      </li>
+      <li>그 밖에 객체의 복사본을 반환하는 clone(), 더 이상 쓸모없어진 객체를 정리하기 위해 GC가 호출하는 finalize(), 객체가 어떤 클래스의 인스턴스인지에 대한 메타데이터 객체를 반환하는 getClass() 등</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="10-인터페이스와-추상클래스-enum">10. 인터페이스와 추상클래스, enum</h2>
+
+<h3 id="101-인터페이스">10.1 인터페이스</h3>
+<ul>
+  <li>개발 절차의 설계 단계에서 인터페이스를 만들어두면 개발 단계에서 메소드의 이름, 매개변수에 대해 일일이 고민하지 않을 수 있음. 실제 코드는 만들지 않더라도 어떤 메소드들이 있어야 하는지 정의할 때 사용</li>
+  <li>implements 라는 예약어 사용. 끝에 s가 붙는 것은 클래스 자체가 3인칭 단수이기 때문</li>
+  <li>implements 뒤에는 여러 인터페이스가 올 수 있음</li>
+  <li>abstract 클래스가 아닌 인터페이스를 구현하는 클래스에서는 반드시 인터페이스에 정의된 메소드들을 구현해야 함</li>
+</ul>
+
+<h3 id="102-추상클래스">10.2 추상클래스</h3>
+<ul>
+  <li>abstract 클래스는 abstract 클래스를 구현해 놓은 클래스를 통해 초기화 및 실행 가능</li>
+  <li>abstract로 선언한 메소드는 반드시 abstract 클래스 안에 있어야 함</li>
+  <li>인터페이스와 달리 구현되어 있는 메소드가 있을 수 있으며 static이나 final 메소드도 가능</li>
+  <li>abstract 클래스는 상속과 동일하게 extends 예약어로 구현. 인터페이스와 유사하게 구현하는 클래스에서는 상속받은 abstract 메소드를 반드시 구현해야 함</li>
+  <li>
+    <p>설계 단계에서 인터페이스 선언 시 어떤 메소드는 미리 만들어 놓아도 문제가 없는 경우 사용</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>인터페이스</th>
+          <th>abstract 클래스</th>
+          <th>클래스</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>선언 시 사용하는 예약어</td>
+          <td>interface</td>
+          <td>abstract class</td>
+          <td>class</td>
+        </tr>
+        <tr>
+          <td>구현 안 된 메소드 포함 가능 여부</td>
+          <td>가능(필수)</td>
+          <td>가능</td>
+          <td>불가</td>
+        </tr>
+        <tr>
+          <td>구현된 메소드 포함 가능 여부</td>
+          <td>불가</td>
+          <td>가능</td>
+          <td>가능(필수)</td>
+        </tr>
+        <tr>
+          <td>static 메소드 선언 가능 여부</td>
+          <td>불가</td>
+          <td>가능</td>
+          <td>가능</td>
+        </tr>
+        <tr>
+          <td>final 메소드 선언 가능 여부</td>
+          <td>불가</td>
+          <td>가능</td>
+          <td>가능</td>
+        </tr>
+        <tr>
+          <td>상속 가능</td>
+          <td>불가</td>
+          <td>가능</td>
+          <td>가능</td>
+        </tr>
+        <tr>
+          <td>구현 가능</td>
+          <td>가능</td>
+          <td>불가</td>
+          <td>불가</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="103-final">10.3 final</h3>
+<ul>
+  <li>클래스에 선언할 경우 해당 클래스 상속 불가</li>
+  <li>메소드에 선언할 경우 해당 메소드 오버라이딩 불가</li>
+  <li>변수에 선언할 경우 더 이상 값을 바꿀 수 없음. 따라서 인스턴스 변수나 static 변수, 참조 자료형의 경우 여러곳에서 사용될 수 있으므로 선언과 함께 값을 지정해야 함</li>
+  <li>매개 변수나 지역 변수가 final일 경우는 반드시 선언할 때 초기화할 필요는 없음</li>
+  <li>참조 자료형 클래스가 final이라고 해서 그 안에 있는 인스턴스 변수나 static 변수가 final이 되진 않음. 따라서 해당 값들은 변경 가능</li>
+</ul>
+
+<h3 id="104-enum">10.4 enum</h3>
+<ul>
+  <li>상수의 집합으로, 타입이자 클래스의 일종</li>
+  <li>enum 클래스에 있는 상수들은 별도로 타입이나 값을 지정할 필요가 없음
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public enum OverTimeValues {
+      THREE_HOUR,
+      FIVE_HOUR,
+      WEEKEND_FOUR_HOUR,
+      WEEKEND_EIGHT_HOUR;
+
+      // 컴파일러가 기본 생성자 자동 생성
+      private OverTimeValues() { }
+  }
+
+  public class OverTimeManager {
+      public getOverTimeAmount(OverTimeValues value){
+          int amount = 0;
+          Sytstem.out.println(value);
+          switch(value){
+              case THREE_HOUR:
+                  amount = 18000;
+                  break;
+              case FIVE_HOUR:
+                  amount = 30000;
+                  break;
+              case WEEKEND_FOUR_HOUR:
+                  amount = 40000;
+                  break;
+              case WEEKEND_EIGHT_HOUR:
+                  amount = 60000;
+                  break;
+          }
+          return amount;
+      }
+  }
+
+  public class OverTimeManager {
+      public static void main(String args[]){
+          OverTimeManager manager = new OverTimeManager();
+          int myAmount = manager.getOverTimeAmount(OverTimeValues.THREE_HOUR); // enum 클래스이름.상수이름 지정만으로 객체 생성 완료
+          System.out.println(value2.getAmount);
+      }
+  }
+
+  // 출력 결과
+    
+  // THREE_HOUR
+  // 18000
+</code></pre></div>    </div>
+  </li>
+  <li>필요할 경우 enum 상수 값을 처음부터 지정할 수 있음</li>
+  <li>enum 클래스의 각 상수는 해당 클래스의 인스턴스 변수가 아닌, 인스턴스 자체로 간주하면 됨. 따라서 해당 클래스에 상수가 아닌 인스턴스 변수가 늘어나면 각 상수가 가지는 값의 개수도 늘어남</li>
+  <li>enum 클래스는 생성자는 package-private나 private로 만들 수 있으나 package-private로 선언해도 사실상 private로 동작함. 또한 생성자를 통해 객체를 생성할 수는 없으며, enum 클래스 내부에서 각 상수의 값을 선언할 때에만 이 생성자를 사용할 수 있음</li>
+  <li>메소드는 보통 클래스와 동일하게 정의하여 사용할 수 있음
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public enum OverTimeValues2 {
+      THREE_HOUR(18000),
+      FIVE_HOUR(30000),
+      WEEKEND_FOUR_HOUR(40000),
+      WEEKEND_EIGHT_HOUR(60000);
+
+      private final int amount;
+
+      OverTimeValues2(int mount){
+          this.amount = amount;
+      }
+      public int getAmount(){
+          return amount;
+      }
+  }
+
+  public class OverTimeManager2 {
+      public static void main(String args[]){
+          OverTimeValues2 value2 = OverTimeValues2.FIVE_HOUR;
+          System.out.println(value2);
+          System.out.println(value2.getAmount);
+      }
+  }
+
+  // 출력결과
+
+  // FIVE_HOUR
+  // 30000
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>enum 클래스는 무조건 java.lang.Enum 클래스의 상속을 받음</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>접근 제어자</th>
+          <th>메소드</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>protected</td>
+          <td>Enum(String name, int ordinal)</td>
+          <td>컴파일러에서 자동 호출되도록 해둔 생성자</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>name은 enum 상수의 이름이며 ordinal은 상수가 선언된 순서대로 0부터 증가</li>
+  <li>Enum 클래스의 부모 클래스는 Object 클래스이나, Enum 클래스에서 Object 클래스 중 4개의 메소드(clone(), finalize(), hashCode(), equals())를 오버라이딩하지 못하도록 막아 toString()만 오버라이딩 가능. toString()은 기본적으로 상수 이름을 출력해줌</li>
+  <li>Enum 클래스에서 선언되어 있는 메소드 중에서는 compareTo(E e)가 있는데, enum 타입과 순서 차이(ordinal)를 반환함. 같은 상수라면 0을 반환</li>
+  <li>그 외에 API 문서에 없는 특수한 메소드로 values()라는 static 메소드가 있는데, enum 클래스에 선언되어 있는 모든 상수를 배열로 반환. enum 객체에 어떤 상수가 어떤 순서로 선언되었는지 확인하기 좋음</li>
+</ul>
+
+<h2 id="11-예외">11. 예외</h2>
+
+<h3 id="111-try-catch-문">11.1 try-catch 문</h3>
+<ul>
+  <li>try 블록 내에서 선언한 변수는 catch에서 인식되지 않음. try 앞에 미리 선언해놔야 함</li>
+  <li>finally 블록은 try-catch 블록 이후, 예외 발생 여부와 상관 없이 항상 실행됨</li>
+  <li>catch 블록을 여러개 정의하여 서로 다른 타입의 예외를 캐치하려할 경우 앞 catch 블록에서 캐치된 경우 뒤로는 전달이 되지 않음. 따라서 catch문의 예외는 체크해야 할 순서대로 나열해야 함</li>
+  <li>모든 예외 클래스의 부모 클래스는 java.lang.Exception으로, Exception 클래스는 모든 예외를 캐치하므로 맨 밑에 사용해 예외들이 빠져나가지 못하도록 묶어두는 역할을 하는게 좋음. 캐치되지 않아 예외가 발생할 경우 해당 스레드는 끝남</li>
+</ul>
+
+<h3 id="112-예외의-종류-3가지">11.2 예외의 종류 3가지</h3>
+<p><img src="/assets/images/%EC%9E%90%EB%B0%94%EC%98%88%EC%99%B8.jpeg" alt="예외 클래스 상관 관계도"></p>
+<ul>
+  <li>error
+    <ul>
+      <li>자바 프로그램 밖에서 발생한 예외 (서버 디스크 고장, 메인보드 고장 등으로 자바 프로그램이 동작 못하는 경우)</li>
+      <li>프로세스에 영향을 준다는 점에서 스레드에 영향을 주는 Exception과 구분됨</li>
+    </ul>
+  </li>
+  <li>checked exception (Other Exception)
+    <ul>
+      <li>Exception을 확장한 예외들</li>
+      <li>NullPointerException, NumberFormatException, ClassCastException.. 및 기타 등등</li>
+    </ul>
+  </li>
+  <li>runtime exception
+    <ul>
+      <li>RuntimeException을 확장한 예외들</li>
+      <li>컴파일 시점이 아닌 실행 시점에 발생 가능. 따라서 try-catch로 묶지 않아도 컴파일시에 예외가 발생하지는 않으나 묶어두는 편이 좋음</li>
+      <li>IOException, SQLException.. 및 기타 등등</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="113-javalangthrowable">11.3 java.lang.Throwable</h3>
+<ul>
+  <li>Throwable의 생성자
+    <ul>
+      <li>Throwable()</li>
+      <li>Throwable(String Message)</li>
+      <li>Throwable(String Message, Throwable casue)</li>
+      <li>Throwable(Throwable casue)</li>
+    </ul>
+  </li>
+  <li>Throwable 클래스에 선언되어 있고 Exception 클래스에서 오버라이딩 한 주요 메소드
+    <ul>
+      <li>getMessage()
+        <ul>
+          <li>예외 메시지를 String 형태로 제공받음. 어떤 예외가 발생했는지에 대한 예외 메시지를 활용하여 사용자에게 별도의 예외 메시지를 보여주기 위해 오버라이딩 가능</li>
+        </ul>
+      </li>
+      <li>toString()
+        <ul>
+          <li>getMessage()와 비슷하나 약간 더 자세하게, 예외 클래스 이름도 같이 제공받음</li>
+        </ul>
+      </li>
+      <li>printStackTrace()
+        <ul>
+          <li>첫 줄에 예외 메시지를, 두 번째 줄부터는 예외가 발생하게 된 메소드들의 스택 트레이스 출력</li>
+          <li>printStackTrace &gt; toString &gt; getMessage 순으로 자세함</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="114-throw-throws">11.4 throw, throws</h3>
+<ul>
+  <li>예외를 직접 던지려면 throw 예외객체; 실행. catch문에 해당 예외를 잡아줄 객체나 부모 객체가 정의되어있지 않을 경우 해당 예외가 발생한 메소드 밖으로 던져짐</li>
+  <li>이때 예외를 던지는 메소드 선언 옆에는 throws + 예외 클래스가 붙어야 함. 해당 메소드를 호출한 메소드로 예외 처리를 위임한다는 의미. 해당 메소드에선 try-catch문이 없어도 되며 해당 메소드를 호출한 메소드에서 호출문을 try-catch문으로 감싸주거나 예외를 다시 그 밖으로 위임할 수 있음</li>
+  <li>Exception을 던질 가능성이 있는 코드가 try-catch나 throws가 강제되는 건 checked exception에 한정됨</li>
+  <li>가장 좋은 방법은 throws하는 메소드를 호출하는 메소드에서 try-catch로 처리하는 것. 예외가 시작된 메소드에서는 어떻게 처리해야할지 알 수 없는 경우가 있으니 책임이 있는 곳(메소드)에서 처리해야 함</li>
+  <li>implements 처럼 throws 뒤에도 여러 예외 클래스가 올 수 있음</li>
+</ul>
+
+<h3 id="115-사용자-정의-exception">11.5 사용자 정의 Exception</h3>
+<ul>
+  <li>Throwable이나 그 자식 클래스의 상속을 받아야 함</li>
+  <li>try-catch로 묶어줄 필요가 있을 경우에만 Exception클래스 확장, 실행 시 예외를 처리할 수 있는 경우에는 RuntimeException 클래스 확장</li>
+</ul>
+
+<h2 id="12-string">12. String</h2>
+
+<h3 id="121-string-클래스-선언">12.1 String 클래스 선언</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public final calss String extends Object
+     implements Serializable, Comparable&lt;String&gt;, CharSequence
+</code></pre></div></div>
+<ul>
+  <li>Serializable 인터페이스 : 구현해야 하는 메소드가 하나도 없음. 구현 시 해당 객체를 파일로 저장하거나 다른 서버에 전송 가능한 상태가 됨</li>
+  <li>Comparable 인터페이스 : compareTo() 메소드를 상속받아 구현함. 매개변수로 받은 객체를 비교하여 같으면 0, 알파벳 순으로(정확히는 유니코드 값에 따라) 앞이면 -1, 뒤이면 1 반환. 알파벳 순서만큼 그 숫자값이 커짐</li>
+  <li>CharSequence 인터페이스 : 해당 클래스가 문자열을 다루기 위한 클래스라는 것을 명시적으로 나타내는데 사용</li>
+</ul>
+
+<h3 id="122-string---바이트-배열-변환">12.2 String &lt;-&gt; 바이트 배열 변환</h3>
+<ul>
+  <li>String 클래스에는 다양한 생성자가 있지만 아래 2개가 가장 많이 사용됨
+    <ul>
+      <li>String(byte[] bytes) : 현재 JVM이 실행되는 환경의 기본 문자 인코딩 방식의 캐릭터 셋을 사용하여 제공된 byte 배열을 디코딩한 String 객체를 생성</li>
+      <li>String(byte[] bytes, String charsetName) : 지정된 캐릭터 셋을 사용하여 제공된 byte 배열을 디코딩한 String 객체를 생성</li>
+      <li>생성자의 매개 변수로 받는 byte 배열은 String 클래스의 아래의 메소드로 생성됨
+        <ul>
+          <li>byte[] getBytes() : 기본 캐릭터 셋의 바이트 배열 생성</li>
+          <li>byte[] getBytes(Charset charset) : 지정한 캐릭터 셋으로 바이트 배열 생성</li>
+          <li>byte[] getBytes(String charsetName) : 지정한 캐릭터 셋 이름으로 바이트 배열 생성</li>
+        </ul>
+      </li>
+      <li>java.nio.Charset 클래스 API에는 표준 캐릭터 셋이 정해져 있음.
+        <ul>
+          <li>UTF-8, UTF-16, EUC-KR 및 기타 등등</li>
+          <li>한글을 처리하기 위해 자바에서 많이 사용하는 캐릭터 셋은 UTF-16</li>
+        </ul>
+      </li>
+      <li>문자가 깨지는 것을 방지하려면 문자열 &lt;-&gt; 바이트 배열 전환 시 동일한 캐릭터 셋을 사용해야 함</li>
+      <li>한글을 byte 배열로 만들 때 어떤 캐릭터 셋을 쓰느냐에 따라서 배열의 크기가 달라짐. EUC-KR은 두글자에 4바이트, UTF-16은 6바이트</li>
+      <li>String 타입의 캐릭터 셋을 매개변수로 받는 아래의 두 생성자/메소드는 UnsupportedEncodingException 체크 예외를 발생시킬 수 있음. 따라서 반드시 try-catch로 감싸줘야 함
+        <ul>
+          <li>String(byte[] bytes, String charsetName)</li>
+          <li>byte[] getBytes(String charsetName)</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="123-string의-다양한-메소드">12.3 String의 다양한 메소드</h3>
+
+<h4 id="1231-문자열의-길이를-확인하는-메소드">12.3.1 문자열의 길이를 확인하는 메소드</h4>
+<ul>
+  <li>length() : 배열의 크기를 확인하는 .length와 달리 괄호가 붙음. 배열은 객체이나 메소드는 없는 특수한 객체</li>
+</ul>
+
+<h4 id="1232-문자열이-같은지-비교하는-메소드">12.3.2 문자열이 같은지 비교하는 메소드</h4>
+<ul>
+  <li>메소드
+    <ul>
+      <li>boolean equals(Object anObject)</li>
+      <li>boolean equalsIgnoreCase(String anotherStr)</li>
+      <li>int compareTo(String anotherStr)</li>
+      <li>int compareToIgnoreCase(String str)</li>
+      <li>boolean contentEquals(CharSequence cs)</li>
+      <li>boolean contentEquals(StringBuffer sb)</li>
+    </ul>
+  </li>
+  <li>모두 매개변수로 넘어온 값과 String 객체가 같은지를 비교하는 메소드로 IgnoreCase가 붙은 메소드들은 대소문자 구분을 할지 안할지 여부만 다름</li>
+  <li>String 클래스의 equals() 메소드는 오버라이딩 되어 주소값이 아닌 value를 비교함</li>
+  <li>자바에는 객체들을 재사용하기 위해 Constant Pool이라는 것이 만들어져 있는데, String의 경우 동일한 값을 갖는 객체가 있으면 이미 만든 객체를 재사용함. 따라서 아래의 text와 text2는 동일한 객체가 됨
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  String text = "Check value";
+  String text2 = "Check value";
+  if(text == text2){
+      ...
+  }
+  if(text.equals("Check value")){
+      ...
+  }
+  //두 if문 모두 true가 됨
+</code></pre></div>    </div>
+  </li>
+  <li>같은 문자열 값이어도 Constant Pool 활용하지 않고 별도의 객체를 생성하고 싶으면
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  String text = "Check value";
+  String text2 = new String("Check value");
+</code></pre></div>    </div>
+  </li>
+  <li>comepareTo() 메소드 설명은 앞의 12.1참고, contentEquals는 2권에서</li>
+</ul>
+
+<h4 id="1233-특정-조건에-맞는-문자열이-있는지를-확인하는-메소드">12.3.3 특정 조건에 맞는 문자열이 있는지를 확인하는 메소드</h4>
+<ul>
+  <li>boolean startsWith(String prefix)</li>
+  <li>boolean startsWith(String prefix, int toffset)</li>
+  <li>boolean endsWith(String suffix)</li>
+  <li>boolean contains(CharSequence s)</li>
+  <li>boolean matches(String regex) : contains()와 유사하나 매개변수가 정규표현식이어야 함</li>
+  <li>boolean regionMatches(int toffset, String other, int ooffset, int len)</li>
+  <li>boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)
+    <ul>
+      <li>ignoreCase : true일 경우 대소문자 구분없이 비교</li>
+      <li>toffset : 비교 대상 문자열의 확인 시작 위치 지정</li>
+      <li>other : 존재하는지를 확인할 문자열</li>
+      <li>ooffset : other 객체의 확인 시작 위치 지정</li>
+      <li>len : 비교할 char의 개수 지정 (비교 대상 문자열의 확인 시작 위치, other 객체의 확인 시작 위치로부터 몇개 문자가 일치하는지 확인할지)</li>
+      <li>매개 변수의 값이 잘못된 경우 무조건 false 반환됨</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="1234-string-내에서-위치를-찾는-메소드">12.3.4 String 내에서 위치를 찾는 메소드</h4>
+<ul>
+  <li>메소드
+    <ul>
+      <li>int indexOf(int ch)</li>
+      <li>int indexOf(int ch, int fromIndex)</li>
+      <li>int indexOf(String str)</li>
+      <li>int indexOf(String str, int fromIndex)</li>
+      <li>int lastIndexOf(int ch)</li>
+      <li>int lastIndexOf(int ch, int fromIndex)</li>
+      <li>int lastIndexOf(String str)</li>
+      <li>int lastIndexOf(String str, int fromIndex)</li>
+    </ul>
+  </li>
+  <li>indexOf()는 가장 앞에서부터, lastIndexOf()는 뒤에서부터 문자열이나 char을 찾음</li>
+  <li>int ch는 char을 의미함. char은 정수형이기 때문에 매개변수로 char 넘기면 자동으로 int로 형변환 됨</li>
+  <li>fromIndex는 문자열의 가장 왼쪽 기준 몇번째 자리부터 값을 확인할지에 대한 값. IndexOf()에서는 해당 위치로부터 오른쪽으로, lastIndexOf()에서는 왼쪽으로 탐색함</li>
+  <li>해당 char이나 문자열이 없으면 -1 반환</li>
+</ul>
+
+<h4 id="1235-string-값의-일부를-추출하기-위한-메소드">12.3.5 String 값의 일부를 추출하기 위한 메소드</h4>
+<ul>
+  <li>java 8까지 String 클래스에선 String 문자열의 값을 char 배열로 저장해왔으나, 성능과 메모리 활용성을 고려하여 java 9부터는 byte 배열로 내부적으로 저장</li>
+  <li>char 단위의 값을 추출하거나 char 배열 &lt;-&gt; String 변환 메소드
+    <ul>
+      <li>char charAt(int index) : 특정 위치의 char 값을 반환</li>
+      <li>static String copyValueOf(char[] data) : char 배열 -&gt; 문자열</li>
+      <li>char[] toCharArray() : 문자열 -&gt; char 배열</li>
+    </ul>
+  </li>
+  <li>문자열의 일부 값을 잘라내는 메소드
+    <ul>
+      <li>String substring(int beginIndex) : beginIndex부터 끝까지 문자열 잘라 반환</li>
+      <li>String substring(int beginIndex, int endIndex) : beginIndex부터 endIndex까지 문자열 잘라 반환</li>
+      <li>CharSequence subSequence(int beginIndex, int endIndex) : beginIndex부터 endIndex까지 문자열을 잘라 반환</li>
+    </ul>
+  </li>
+  <li>문자열을 여러 개의 String 배열로 나누는 split 메소드
+    <ul>
+      <li>메소드
+        <ul>
+          <li>String[] split(String regex) : 정규 표현식에 맞춰 문자열을 잘라 String 배열로 반환</li>
+          <li>String[] split(String regex, int limit) : 위와 유사하나 반환하는 String 배열 크기에 대한 limit가 있음</li>
+        </ul>
+      </li>
+      <li>정규표현식이나 특정 알파벳, 기호 하나로 문자열을 나눌경우 split()를, 특정 String으로 문자열을 나눌경우 StringTokenizer 클래스를 이용하는 편이 용이함</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="1236-string값을-바꾸는-메소드">12.3.6 String값을 바꾸는 메소드</h4>
+<ul>
+  <li>문자열을 합치거나 공백을 제거하는 메소드
+    <ul>
+      <li>String concat(String str) : 자바에선 +로 문자열을 더할 수 있어 잘 사용 안됨</li>
+      <li>String trim() : 문자열의 맨앞과 맨뒤에 있는 공백들을 제거. 문자열에 공백을 제외한 char값이 하나 이상 있는지 확인하는데 사용할 수 있음
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  String text = " a ";
+  if(text!=null &amp;&amp; text.trim().length() &gt; 0){
+      System.out.println("OK");
+  }
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>내용을 교체하는 메소드
+    <ul>
+      <li>String replace(char oldChar, char newChar) : 문자열에서 oldChar 문자를 newChar 문자로 모두 치환</li>
+      <li>String replace(CharSequence target, CharSequence replacement) : 문자열에서 target 문자열을 replacement 문자열로 모두 치환</li>
+      <li>String replaceAll(String regex, String replacement) : 정규 표현식에 매칭되는 모든 부분을 replacement로 치환</li>
+      <li>String replaceFirst(String regex, String replacement) : 정규 표현식에 매칭되는 첫번째 내용을 replacement로 치환</li>
+    </ul>
+  </li>
+  <li>특정 형식에 맞춰 값을 치환하는 메소드
+    <ul>
+      <li>메소드
+        <ul>
+          <li>static String format(String format, Object… args)</li>
+          <li>static String format(Locale 1, String format, Object… args) : 지정한 Locale 지역 규칙에 따라 포맷팅</li>
+        </ul>
+      </li>
+      <li>%s는 String, %d는 정수형, %f는 소수점이 있는 숫자, %%는 % 의미
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  String name = "민형";
+  int age = 25;
+
+  String result = String.format("이름: %s, 나이: %d", name, age);
+  System.out.println(result);
+  // 출력: 이름: 민형, 나이: 25
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>대소문자를 바꾸는 메소드
+    <ul>
+      <li>toLowerCase()</li>
+      <li>toLowerCase(Locale locale)</li>
+      <li>toUpperCase()</li>
+      <li>toUpperCase(Locale locale)</li>
+    </ul>
+  </li>
+  <li>기본 자료형을 문자열로 변환하는 메소드
+    <ul>
+      <li>메소드
+        <ul>
+          <li>static String valueOf(boolean b) : boolean 값을 “true” 또는 “false” 문자열로 변환</li>
+          <li>static String valueOf(char c)</li>
+          <li>static String valueOf(char[] data)</li>
+          <li>static String valueOf(char[] data, int offset, int count)</li>
+          <li>static String valueOf(double d)</li>
+          <li>static String valueOf(float f)</li>
+          <li>static String valueOf(int i)</li>
+          <li>static String valueOf(long l)</li>
+          <li>static String valueOf(Object obj) : obj 객체의 toString() 결과를 반환. obj 값이 null인 경우에는 NullPointeraexcerption 없이 null을 반환함</li>
+        </ul>
+      </li>
+      <li>별도의 문자열과 합치는 경우에는 valueOf() 사용할 필요없이 자동으로 문자열로 변환됨
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  byte b = 1;
+  String byte1 = String.valueOf(b);
+  String byte2 = b + ""
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="1237-사용해서는-안되는-메소드">12.3.7 사용해서는 안되는 메소드</h4>
+<ul>
+  <li>
+    <p>String 클래스에서 관리하는 문자열 풀에 있는 값을 재사용하므로 text, text2는 동일한 객체가 되고, text3은 새로운 객체를 생성</p>
+
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  String text = "Check value";
+  String text2 = "Check value";
+  String text3 = new String("Check value");
+</code></pre></div>    </div>
+  </li>
+  <li>String 클래스에는 자바가 아닌 C로 구현된 intern()이라는 메소드가 있음.</li>
+  <li>intern()을 사용하면 new String(String)으로 생성한 문자열 객체라도 풀에 해당 값이 있으면 풀에 있는 값을 참조하는 객체 반환. 만약 동일한 문자열이 존재하지 않으면 풀에 해당 값을 추가. 따라서 아래를 수행한 뒤의 문자열은 equals()가 아닌 == 으로 값이 동일한지 비교할 수 있음
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  text3 = text3.intern();
+</code></pre></div>    </div>
+  </li>
+  <li>문제는 새로운 문자열을 쉴새없이 만드는 프로그램에서 intern() 메소드를 사용하여 억지로 문자열 풀에 값을 할당하게 하면 저장영역의 한계로 별도의 메모리 청소 단계를 거치게 되어 전체 자바 시스템 성능에 악영향을 줌
+    <ul>
+      <li>리터럴만 풀에 저장되기 때문에 아래의 경우 힙 영역에만 객체가 새로 생성되지만
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  for (int i = 0; i &lt; 1000000; i++) {
+      String s = "Num" + i;   //i가 변수이므로 해당값은 힙에 저장됨
+  }
+</code></pre></div>        </div>
+      </li>
+      <li>아래의 경우에는 강제로 풀에 쌓이게 되어 GC의 부담이 커짐
+        <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  for (int i = 0; i &lt; 1000000; i++) {
+      String s = ("Num" + i).intern();
+  }
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="124-stringbuffer와-stringbuilder">12.4 StringBuffer와 StringBuilder</h3>
+<ul>
+  <li>String은 immutable(불변의) 객체이므로 한 번 만들어지면 더이상 값을 바꿀수 없음. 문자열을 더하면 새로운 문자열 객체가 생성되고 기존의 객체는 GC의 대상이 됨</li>
+  <li>이러한 쓰레기를 계속 만드는 단점을 보안하기 위해 StringBuffer와 StringBuilder 클래스 제공</li>
+  <li>StringBuffer와 StringBuilder는 +가 아닌 append() 메소드로 문자열을 더함. 이 때 새로운 객체를 생성하지 않으므로 여러 String을 더하는 연산이 있을 경우 해당 클래스를 적절하게 선택하여 사용하는 것이 좋음</li>
+  <li>append()는 매개변수로 모든 기본 자료형과 참조 자료형을 포함하므로 어떤 값이라도 매개변수로 넣을 수 있음. append()의 반환 타입은 StringBuffer/StringBuilder이므로 연달아 사용 가능</li>
+  <li>두 클래스의 메소드는 동일하나 StringBuffer는 Thread safe하고 StringBuilder는 그렇지 않음. 대신 StringBuilder가 속도는 더 빠름</li>
+  <li>JDK 5 이상에서는 String 더하기 연산을 할 경우 컴파일 시 자동으로 해당 연산을 StringBuilder로 변환하나, for 루프와 같이 반복 연산을 할 경우에는 자동으로 변환을 해주지 않으므로 수동으로 해야함</li>
+  <li>String, StringBuilder, StringBuffer 클래스는 모두 CharSequence 인터페이스를 구현하므로 이 셋 중 하나의 클래스를 사용하여 매개 변수로 받는 작업을 할 때 String이나 StringBuilder 타입으로 받기보다 CharSequence 타입으로 받는 편이 좋음</li>
+  <li>하나의 메소드 내에서 문자열을 생성하여 더할 경우 StringBuilder를 사용해도 문제없으나, 어떤 클래스에 문자열을 생성하여 더하기 위한 인스턴스 변수가 선언되었고 여러 스레드에서 이 변수를 동시에 접근하는 일이 있다면 반드시 StringBuffer를 사용해야 함</li>
+</ul>
+
+<h2 id="13-내부-클래스">13. 내부 클래스</h2>
+
+<h3 id="131-내부-클래스-종류">13.1 내부 클래스 종류</h3>
+<ul>
+  <li>static 여부에 따라 Static nested 클래스와 내부 클래스로 구분됨</li>
+  <li>내부 클래스는 다시 (로컬) 내부 클래스와 익명 클래스로 나뉨</li>
+  <li>내부 클래스의 용도
+    <ul>
+      <li>한 곳에서만 사용되는 클래스를 논리적으로 묶어서 처리해야 할 때</li>
+      <li>캡슐화가 필요할 때 (내부 구현 은닉)</li>
+      <li>소스의 가독성과 유지보성 향상</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="132-static-nested-클래스">13.2 Static nested 클래스</h3>
+<ul>
+  <li>일반 내부 클래스와 달리 감싸고 있는 클래스의 static 변수만 참조할 수 있음</li>
+  <li>반대로 감싸고 있는 클래스에서 내부 클래스의 인스턴스 변수에 접근하려면 static 여부 상관없이 내부 클래스의 객체를 생성해서
+그 객체를 통해서만 가능
+    <ul>
+      <li>outer를 만든다고 해서 자동으로 inner가 생성되지는 않으며, outer.new Inner()라고 명시적으로 생성해야 Inner 객체가 생성됨. 따라서 Inner 클래스는 문법적으로 내부에 포함되어 있을뿐, 객체 레벨에선 독립적임</li>
+    </ul>
+  </li>
+  <li>Static nested 클래스를 초기화하려면
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public class OuterOfStatic {
+      static class StaticNested { //Static nested 클래스
+          int value = 200;
+            
+          public int setValue(int value){
+              this.value = value;
+          }
+      }
+  }
+
+  public class NestedSample {
+      public static void main(String[] args){
+          NestedSample sample = new NestedSample();
+          sample.makeStaticNestedObject();
+      }
+      public void makeStaticNestedObject(){
+          OuterOfStatic.StaticNested staticNested = new OuterOfStatic.StaticNested();
+          staticNested.setValue(3);
+      }
+  }
+</code></pre></div>    </div>
+  </li>
+  <li>Outer 클래스와 논리적으로 묶여 있지만, 인스턴스에 종속될 필요는 없는 클래스가 필요할 때 사용. Outer 객체 없이도 생성 가능함</li>
+  <li>School, University 클래스가 있을 때 Student 클래스를 독립적으로 생성하는 대신 각 클래스 안에 static으로 생성하면 어느쪽의 Student인지 용도가 보다 명확해짐</li>
+</ul>
+
+<h3 id="133-내부클래스와-익명클래스">13.3 내부클래스와 익명클래스</h3>
+<ul>
+  <li>static 하지 않은 일반 내부클래스는 outer 객체 생성이 먼저 필요함
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public class InnerSample {
+      public static void main(String[] args) {
+          // Outer 객체 먼저 생성
+          InnerSample outer = new InnerSample();
+
+          // Inner 객체 생성 (Outer 인스턴스를 통해)
+          Inner inner = outer.new Inner();
+          inner.setValue(5);
+          inner.printValue();
+      }
+  }
+</code></pre></div>    </div>
+  </li>
+  <li>하나의 클래스에서 어떤 공통적인 작업을 수행하는 클래스가 필요한데 다른 클래스에서는 그 클래스가 전혀 필요 없을 때 사용</li>
+  <li>GUI(사용자 화면용 애플리케이션) 관련 프로그램 개발 시 가장 많이 사용. Swing, Applet, SWT, GWT, 안드로이드 등</li>
+  <li>GUI에서 내부클래스들은 리스너를 처리할 때(어떤 버튼이 눌렸을 때) 해야 하는 작업을 정의할 때 많이 쓰임. 버튼마다 작업이 보통 상이하므로 별도로 클래스를 만드는 대신 내부클래스를 만들며, 일회성일 경우 더 간단하게 익명클래스를 사용함
+    <div class="language-plaintext highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  public class MagicButton {
+      private EventListener listener;
+
+      public void setListener(EventListener listener) {
+          this.listener = listener;
+      }
+      public void onClickProcess(){
+          if(listener != null){
+              listener.onClick();
+          }
+      }
+  }
+
+  MagicButton button = new MagicButton();
+  button.setListener(new EventListener() {   //익명클래스
+      public void onClick(View v) {
+          System.out.println("Clicked!");
+      }
+  });
+</code></pre></div>    </div>
+  </li>
+  <li>객체 생성처럼 보이나, outer 클래스 내부에서 새로운 클래스의 몸통을 정의했으므로 내부클래스에 속함</li>
+  <li>클래스를 만들고 호출하면 그 정보는 메모리에 올라가므로 많이 생성될수록 메모리 사용량이 늘어나고 애플리케이션 시작 속도가 느려짐. (로컬)내부클래스와 달리 익명클래스를 사용하면 Outer 클래스의 인스턴스 변수 등을 참조하지 않는 이상 Outer 객체와 불필요하게 오래 연결되지 않아 GC의 Outer 객체 회수가 더 용이해짐</li>
+</ul>
+
+<h2 id="14-어노테이션">14. 어노테이션</h2>
+
+<h3 id="141-정의">14.1 정의</h3>
+<ul>
+  <li>클래스나 메소드 등의 선언시에 @를 사용하는 것. JDK 5부터 등장함</li>
+  <li>컴파일에게 정보를 알려주거나, 컴파일할 때와 설치 시의 작업을 지정하거나, 실행할 때 별도의 처리가 필요할 때 사용함</li>
+</ul>
+
+<h3 id="142-자바-기본-어노테이션-3개">14.2 자바 기본 어노테이션 3개</h3>
+<ul>
+  <li>@Override
+    <ul>
+      <li>해당 메소드가 Override 된 것이니 잘못 코딩 시 컴파일러가 알려주도록 하기위해 사용</li>
+    </ul>
+  </li>
+  <li>@Deprecated
+    <ul>
+      <li>컴파일러에게 더 이상 사용하지 않는 클래스/메소드이며 다른이가 사용시 경고하도록 요청하기 위해 사용</li>
+      <li>여러 사람들과 작업할 경우 @Deprecated로 사용하지 않을것이라는 알림을 제공하여 계도 기간을 거친 후 삭제하는 것이 바람직함</li>
+    </ul>
+  </li>
+  <li>@SupressWarings
+    <ul>
+      <li>컴파일 시 경고 메시지가 나타날 때 내 의도대로 코딩한 것이니 경고를 해줄 필요가 없다고 컴파일러에게 알리는 용도</li>
+      <li>속성값을 지정할 수 있음 -&gt; @SupressWarings(“deprecation”)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="143-메타-어노테이션">14.3 메타 어노테이션</h3>
+<ul>
+  <li>어노테이션을 직접 선언할 때 사용</li>
+  <li>@Target
+    <ul>
+      <li>어노테이션을 어떤 것에 적용할지 선언</li>
+      <li>@Target(ElementType.METHOD)와 같이 괄호 안에 적용대상 지정
+        <ul>
+          <li>적용 대상
+            <ul>
+              <li>CONSTRUCTOR</li>
+              <li>FIELD</li>
+              <li>LOCAL_VALIABLE</li>
+              <li>METHOD</li>
+              <li>PACKAGE</li>
+              <li>PARARMETER</li>
+              <li>TYPE : 클래스, 인터페이스, enum 등</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>@Retention
+    <ul>
+      <li>얼마나 오래 어노테이션 정보가 유지되는지 선언</li>
+      <li>@RETENTION(RetentionPolicy.RUNTIME)
+        <ul>
+          <li>적용대상
+            <ul>
+              <li>SOURCE</li>
+              <li>CLASS</li>
+              <li>RUNTIME</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>@Documented
+    <ul>
+      <li>해당 어노테이션에 대한 정보가 Javadocs(API) 문서에 포함된다는 것 선언</li>
+    </ul>
+  </li>
+  <li>@Inherited
+    <ul>
+      <li>모든 자식 클래스에서 부모 클래스의 어노테이션을 사용 가능하다는 것 선언</li>
+    </ul>
+  </li>
+  <li>@interface
+    <ul>
+      <li>어노테이션을 선언 시 함게 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import java.lang.annotation.*;
+
+//적용 대상 지정 (클래스, 메서드 등)
+@Target({ElementType.TYPE, ElementType.METHOD})
+
+//유지 정책 지정 (런타임)
+@Retention(RetentionPolicy.RUNTIME)
+
+//어노테이션 정의
+public @interface UserAnnotation {
+    public int number();  // 속성 정의
+    public String text() default "This is first annotation" // 기본값 있는 속성
+}
+
+@UserAnnotation(number = 1, text = "클래스에 적용")
+public class UserService {
+
+    @UserAnnotation(number = 2) // text는 기본값 사용. 기본값 지정되어 있지 않은 number는 반드시 값 지정 필요
+    public void createUser() {
+        ...
+    }
+}
+</code></pre></div></div>
+
+<ul>
+  <li>어노테이션 속성은 메타데이터일 뿐 실제 필드가 아니며, 값을 읽어오려면 자바 리플렉션이라는 API에서 제공하는 클래스들을 사용해야 함</li>
+  <li>lombok : 개발자가 필요한 작업을 어노테이션 선언만으로도 편하게 처리할 수 있게 도와줌</li>
+</ul>
+
+
+    </div>
+
+</article>
+<div class="post-nav">
+<a class="previous" href="/investments/2025/06/07/%EB%89%B4%EC%9A%95%EC%A3%BC%EB%AF%BC%EC%9D%98-%EC%A7%84%EC%A7%9C-%EB%AF%B8%EA%B5%AD%EC%8B%9D-%EC%A3%BC%EC%8B%9D%ED%88%AC%EC%9E%90.html" title="뉴욕주민의 진짜 미국식 주식투자 : 내용 정리">뉴욕주민의 진짜 미국식 주식투자 : 내용...</a><a class="next" href="/cs/2025/09/11/%EC%9E%90%EB%B0%94%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%95%B5%EC%8B%AC-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html" title="자바로 배우는 핵심 자료구조와 알고리즘">자바로 배우는 핵심 자료구조와 알고리즘</a>
+</div>
+<div class="post-related">
+      <div>Related Articles</div>
+      <ul>
+        <li class="">
+          <a class="post-link" href="/cs/2025/07/22/%EC%9E%90%EB%B0%94-%EA%B8%B0%EC%B4%88-%EC%A0%95%EB%A6%AC-(%EC%9E%90%EB%B0%94%EC%9D%98-%EC%8B%A0-vol.1).html" title="자바 기초 정리1 (자바의 신 vol.1)">
+            자바 기초 정리1 (자바의 신 vol.1)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/cs/2025/10/20/%EC%9E%90%EB%B0%94-%EA%B8%B0%EC%B4%88-%EC%A0%95%EB%A6%AC-(%EC%9E%90%EB%B0%94%EC%9D%98-%EC%8B%A0-vol.2).html" title="자바 기초 정리2 (자바의 신 vol.2)">
+            자바 기초 정리2 (자바의 신 vol.2)<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/cs/2025/09/11/%EC%9E%90%EB%B0%94%EB%A1%9C-%EB%B0%B0%EC%9A%B0%EB%8A%94-%ED%95%B5%EC%8B%AC-%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0%EC%99%80-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98.html" title="자바로 배우는 핵심 자료구조와 알고리즘">
+            자바로 배우는 핵심 자료구조와 알고리즘<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+<li class="">
+          <a class="post-link" href="/investments/2025/06/07/%EB%89%B4%EC%9A%95%EC%A3%BC%EB%AF%BC%EC%9D%98-%EC%A7%84%EC%A7%9C-%EB%AF%B8%EA%B5%AD%EC%8B%9D-%EC%A3%BC%EC%8B%9D%ED%88%AC%EC%9E%90.html" title="뉴욕주민의 진짜 미국식 주식투자 : 내용 정리">
+            뉴욕주민의 진짜 미국식 주식투자 : 내용 정리<span class="post-badges">
+  <span class="post-badge badge-top">TOP</span>
+  <span class="post-badge badge-new">NEW</span>
+</span>
+</a>
+        </li>
+</ul>
+    </div>
+<div class="post-comments"></div></section>
+</div>
+
+
+  </section>
+  <section class="sidebar" style="margin-left: 15px;">
+    <!-- Get sidebar items --><style type="text/css" media="screen">
+.post-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+</style>
+
+<div class="post-menu">
+  <div class="post-menu-title">TOC</div>
+  <div class="post-menu-content"></div>
+</div>
+
+<script>
+  function generateContent() {
+    var menu = document.querySelector(".post-menu");
+    var menuContent =  menu.querySelector(".post-menu-content");
+    var headings = document.querySelector(".post-content").querySelectorAll("h2, h3, h4, h5, h6");
+
+    // Hide menu when no headings
+    if (headings.length === 0) {
+      return menu.style.display = "none";
+    }
+
+    // Generate post menu
+    var menuHTML = '';
+    for (var i = 0; i < headings.length; i++) {
+      var h = headings[i];
+      menuHTML += (
+        '<li class="h-' + h.tagName.toLowerCase() + '">'
+        + '<a href="#h-' + h.getAttribute('id') + '">' + h.textContent + '</a></li>');
+    }
+
+    menuContent.innerHTML = '<ul>' + menuHTML + '</ul>';
+
+    // The header element
+    var header = document.querySelector('header.site-header');
+
+    function doMenuCollapse(index, over_items) {
+      var items = menuContent.firstChild.children;
+
+      if (over_items == undefined) {
+        over_items = 20;
+      }
+
+      if (items.length < over_items) {
+        return;
+      }
+
+      var activeItem = items[index];
+      var beginItem = activeItem
+      var endItem = activeItem
+      var beginIndex = index;
+      var endIndex = index + 1;
+      while (beginIndex >= 0
+        && !items[beginIndex].classList.contains('h-h2')) {
+        beginIndex -= 1;
+      }
+      while (endIndex < items.length
+        && !items[endIndex].classList.contains('h-h2')) {
+        endIndex += 1;
+      }
+      for (var i = 0; i < beginIndex; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+      for (var i = beginIndex + 1; i < endIndex; i++) {
+        item = items[i]
+        // if (!item.classList.contains('h-h2')) {
+          item.style.display = '';
+        // }
+      }
+      for (var i = endIndex; i < items.length; i++) {
+        item = items[i]
+        if (!item.classList.contains('h-h2')) {
+          item.style.display = 'none';
+        }
+      }
+    }
+
+    // Init menu collapsed
+    doMenuCollapse(-1);
+
+    // Active the menu item
+    window.addEventListener('scroll', function (event) {
+      var lastActive = menuContent.querySelector('.active');
+      var changed = true;
+      var activeIndex = -1;
+      for (var i = headings.length - 1; i >= 0; i--) {
+        var h = headings[i];
+        var headingRect = h.getBoundingClientRect();
+        var headerRect = header.getBoundingClientRect();
+        var headerTop = Math.floor(headerRect.top);
+        var headerHeight = Math.floor(headerRect.height);
+        var headerHeight = headerTop + headerHeight + 20;
+        if (headingRect.top <= headerHeight) {
+          var id = 'h-' + h.getAttribute('id');
+          var a = menuContent.querySelector('a[href="#' + id  + '"]');
+          var curActive = a.parentNode;
+          if (curActive) {
+            curActive.classList.add('active');
+            activeIndex = i;
+          }
+          if (lastActive == curActive) {
+            changed = false;
+          }
+          break;
+        }
+      }
+      if (changed) {
+        if (lastActive) {
+          lastActive.classList.remove('active');
+        }
+        doMenuCollapse(activeIndex);
+      }
+      event.preventDefault();
+    });
+  }
+  generateContent();
+</script>
+</section>
+</div>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+    <div class="site-footer-inner">
+<div>Unpublished Work <span class="copyleft">©</span> 2017-2025 Toyo</div>
+      <div>Powered by <a title="Jekyll is a simple, blog-aware, static site
+      generator." href="https://jekyllrb.com/">Jekyll</a> &amp; <a title="Yat, yet
+      another theme." href="https://github.com/jeffreytse/jekyll-theme-yat">Yat Theme</a>.</div>
+      <div class="footer-col rss-subscribe">Subscribe <a href="/feed.xml">via RSS</a>
+</div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
